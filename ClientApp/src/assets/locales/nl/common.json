@@ -1,0 +1,308 @@
+{
+  "selected_language": "Vr",
+  "main": {
+    "languages": {
+      "fr": "Frans",
+      "en": "Engels",
+      "nl": "Nederlands"
+    },
+    "languagesISO": {
+      "fr": "FR",
+      "en": "IN",
+      "nl": "NL"
+    },
+    "general": {
+      "title": "Patch-notities",
+      "filter": "Filters",
+      "search": "Zoeken",
+      "footer": "© 2023 Patchopmerkingen",
+      "search_placeholder": "Zoek op notitie",
+      "cancel": "Annuleren",
+      "submit": "sturen",
+      "add": "Toevoegen",
+      "edit": "Bewerken",
+      "delete": "verwijderen",
+      "show": "zien",
+      "archive": "Archief",
+      "unarchive": "Unarchief",
+      "save": "Opnemen",
+      "confirm": "Bevestigen",
+      "or": "Of",
+      "load_more": "Laat meer zien",
+      "changes_saved": "Opgeslagen wijzigingen",
+      "error": "er is een fout opgetreden",
+      "no_result_found" : "Oeps! Er komen geen resultaten overeen met uw zoekopdracht",
+      "try_another_search": "Voer nieuwe zoekparameters in",
+      "receive_newsletter": "Ontvang de nieuwsbrief",
+      "subscribe": "Inschrijven"
+    },
+    "userMenu": {
+      "logout": "Afmelden",
+      "back_apschool": "Keer terug naar APSschool",
+      "actions" : "Acties",
+      "languages_options": "Taalopties"
+    },
+    "forms": {
+      "error_message_field_required": "Gelieve dit veld in te vullen"
+    },
+    "sorting": {
+      "ascendingOrder": "Oplopend",
+      "descendingOrder": "Aflopende volgorde",
+      "sortOrder": "Sorteervolgorde"
+    },
+    "errors": {
+      "required_field": "Dit veld is verplicht"
+    }
+  },
+  "filters": {
+    "filters_date": {
+      "title": "Publicatie datum",
+      "list": {
+        "today": "Vandaag",
+        "yesterday": "Gisteren",
+        "last_week": "Vorige week",
+        "chose_date": "Selecteer een datum",
+        "from": "Van",
+        "to": "Bij"
+      }
+    },
+    "filters_category": {
+      "title": "Categorie",
+      "list": {
+        "New feature": "Nieuwigheid",
+        "Bug fix": "Correctie",
+        "Improvement": "Verbetering",
+        "Other": "Ander"
+      }
+    },
+    "filters_modules": {
+      "title": "modules",
+      "list": {
+        "Base": "Base",
+        "Messagerie": "Berichten",
+        "Réservation locaux": "Lokalen",
+        "Valves et news": "Nieuws",
+        "Distributeurs": "Automaat",
+        "Évènements": "Evenementen",
+        "Plaines": "Buitenschoolse activiteit",
+        "Garderie": "Kinderopvang",
+        "Internat": "Internaat",
+        "Repas": "Reservatie",
+        "Webshop": "webshop",
+        "Financier": "Financieel",
+        "Coda": "coda",
+        "Pédagogique": "Pedagogisch",
+        "Discipline": "Discipline",
+        "Absences": "Afwezigheden",
+        "Bulletin": "Rapport",
+        "Suivi pédagogique": "Pedagogische begeleiding",
+        "Réunions parents": "Vergadering",
+        "Journal de classe": "School agenda",
+        "Ramassages": "Inzamelingen",
+        "Pointages": "Check-ins",
+        "ISBW": "ISBW",
+        "Importation": "Importeren",
+        "Retards": "Telaten",
+        "Debug": "Debuggen",
+        "Journaux éducateurs": "Agendas van opvoeders",
+        "FWB": "FWB",
+        "Recharge des comptes": "Herlaad rekeningen",
+        "Paiement Digiteal": "Digiteal betaling",
+        "Paiement Payzen": "Payzen betaling",
+        "Paiement Mollie": "Mollie betaling",
+        "Paiement Bancontact": "Bancontact betaling"
+      }
+    },
+    "filters_state": {
+      "title": "Staat",
+      "list": {
+        "all": "Alle",
+        "scheduled": "Gepland",
+        "published": "Gepubliceerd",
+        "draft": "Ongeorganiseerd",
+        "archived": "Archief"
+      }
+    },
+    "filters_sort": {
+      "title": "sorteer op",
+      "list": {
+        "id": "ID kaart",
+        "publicationDate": "Publicatie datum",
+        "modificationDate": "Wijzigingsdatum",
+        "title": "Titel"
+      }
+    },
+    "filters_category_message": {
+      "title": "Categorie",
+      "list": {
+        "Rejected": "Afgewezen",
+        "To explore": "Ontdekken",
+        "Undefined": "Niet gedefinieerd",
+        "V4": "V4"
+      }
+    }
+  },
+  "pages": {
+    "navlinks": {
+      "home": "Startpagina",
+      "mailbox": "Postavk",
+      "patchNote": "Patch-notities",
+      "newsletter": "Nieuwsbrief",
+      "commits": "Begaat",
+      "leaveMessage": "Laat een bericht achter"
+    },
+    "mailbox": {
+      "mailbox": "Berichten",
+      "messages": "Messages",
+      "seach_message": "Zoek een bericht",
+      "filtered_by": "Gefilterd op",
+      "mail_status": "Toestand",
+      "read": "Lezen",
+      "unread": "Ongelezen",
+      "all": "Alle",
+      "from": "Van",
+      "subject": "Onderwerp",
+      "select_message": "Selecteer een bericht",
+      "no_email": "Geen bericht dat overeenkomt met uw zoekopdracht"
+    },
+    "login": {
+      "login": "Log in",
+      "login_title": "Maak verbinding met Patchopmerking",
+      "login_username": "ID kaart",
+      "login_password": "Wachtwoord",
+      "login_submit": "Inloggen",
+      "login_error": "Het veld is verplicht."
+    },
+    "home_customer": {
+      "home_customer": "ontvangst",
+      "home_customer_subtitle": "Alle updates"
+    },
+    "patch_note": {
+      "patch_note_title": "Beheer van patchnotities",
+      "patch_note_id": "ID kaart",
+      "patch_note_title_article": "Titel",
+      "patch_note_description_article": "Beschrijving",
+      "patch_note_category": "Categorie",
+      "patch_note_category_select": "Kies een categorie",
+      "patch_note_module": "Modulair",
+      "patch_note_module_select": "Selecteer een moduul",
+      "patch_note_date": "Publicatie",
+      "patch_note_date_update": "Wijziging",
+      "patch_note_author": "Auteur",
+      "patch_note_version": "Versie",
+      "patch_note_action": "Voorraad",
+      "patch_note_no_result": "Geen resultaat",
+      "patch_note_add": "Notitie toevoegen",
+      "patch_note_update": "De notitie bewerken",
+      "patch_note_show": "De notitie bekijken",
+      "patch_note_add_draft": "Sla het concept op",
+      "patch_note_status": "Toestand",
+      "patch_note_status_draft": "Ongeorganiseerd",
+      "patch_note_status_publish": "Gepubliceerd worden",
+      "patch_note_deleted": "Artikel verwijderd",
+      "patch_note_archived": "Artikel gearchiveerd"
+    },
+    "newsletter": {
+      "newsletter_title": "Nieuwsbrief beheer",
+      "newsletter_creation_question": "Wil je een nieuwsbrief maken?",
+      "newsletter_title_main": "Titel",
+      "newsletter_title_fr": "Titel | ",
+      "newsletter_title_nl": "Titel | ",
+      "newsletter_title_en": "Titel | ",
+      "newsletter_summary_main": "Overzicht",
+      "newsletter_summary_fr": "Samenvatting | ",
+      "newsletter_summary_nl": "Samenvatting | ",
+      "newsletter_summary_en": "Samenvatting | ",
+      "newsletter_description_main": "Beschrijving",
+      "newsletter_description_fr": "Beschrijving | ",
+      "newsletter_description_nl": "Beschrijving | ",
+      "newsletter_description_en": "Beschrijving | ",
+      "newsletter_articles_select": "Nieuwsbrief artikelen",
+      "newsletter_articles_select_short": "Selecteer items",
+      "newsletter_articles_select_all": "Selecteer alles",
+      "newsletter_date": "Publicatie datum",
+      "newsletter_date_update": "Wijzigingsdatum",
+      "newsletter_author": "Auteur",
+      "newsletter_version": "Versie",
+      "newsletter_number_articles": "Aantal artikelen",
+      "newsletter_articles_included": "Artikelen inbegrepen",
+      "newsletter_actions": "Aandelen",
+      "newsletter_no_result": "Geen resultaat",
+      "newsletter_add": "Nieuwsbrief toevoegen",
+      "newsletter_content_creation": "Creatie van meertalige content",
+      "newsletter_update": "Het redigeren van de nieuwsbrief",
+      "newsletter_show": "Raadpleging van de nieuwsbrief",
+      "newsletter_add_draft": "Sla het concept op",
+      "newsletter_status": "Toestand",
+      "newsletter_status_draft": "Ongeorganiseerd",
+      "newsletter_status_publish": "Gepubliceerd worden",
+      "newsletter_published": "Gepubliceerd",
+      "newsletter_planned": "Gepland"
+    },
+    "commit": {
+      "commit_title": "Commits",
+      "commit_author": "Auteur",
+      "commit_start_date": "Startdatum",
+      "commit_end_date": "Einddatum",
+      "commit_branch": "Branch",
+      "commit_sha": "Commit",
+      "commit_message": "Bericht",
+      "commit_date": "Date"
+    }
+  },
+  "modales": {
+    "sendingMessage": {
+      "success": {
+        "title": "Bericht verzonden",
+        "message": "Bedankt voor je aanbeveling"
+      },
+      "alert": {
+        "title": "Aandacht",
+        "message": "Weet je zeker dat je je bericht wilt verwijderen?"
+      }
+    },
+    "article": {
+      "article_creation": {
+        "success": {
+          "title": "Artikel succesvol aangemaakt",
+          "message": ""
+        },
+        "article_creation_draft": {
+          "success": {
+            "title": "Opgeslagen concept",
+            "message": ""
+          },
+          "alert": {
+            "title": "Aandacht",
+            "message": "Weet je zeker dat je je bericht wilt verwijderen?"
+          }
+        }
+      },
+      "article_updating": {
+        "success": {
+          "title": "Succesvolle operatie",
+          "message": "Wijzigingen zijn succesvol opgeslagen"
+        },
+        "article_creation_draft": {
+          "success": {
+            "title": "Opgeslagen concept",
+            "message": ""
+          },
+          "alert": {
+            "title": "Aandacht",
+            "message": "Weet je zeker dat je je bericht wilt verwijderen?"
+          }
+        }
+      }
+    },
+    "messageRecommandationStatut": {
+      "title": "Statusbeheer",
+      "add_status": "Status toevoegen"
+    },
+    "newsletter": {
+      "newsletter_articles_included": "Artikelen inbegrepen",
+      "newsletter_articles_latest": "laatste artikelen",
+      "newsletter_articles_older": "Oudere artikelen"
+    }
+  }
+}

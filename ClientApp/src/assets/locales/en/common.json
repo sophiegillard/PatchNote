@@ -1,0 +1,308 @@
+{
+  "selected_language": "en",
+  "main": {
+    "languages": {
+      "fr": "Français",
+      "en": "Anglais",
+      "nl": "Néerlandais"
+    },
+    "languagesISO": {
+      "fr": "FR",
+      "en": "EN",
+      "nl": "NL"
+    },
+    "general": {
+      "title": "Patch Note",
+      "filter": "Filters",
+      "search": "Search",
+      "footer": "© 2023 Patch Note",
+      "search_placeholder": "Search a note",
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "show": "Show",
+      "archive": "Archive",
+      "unarchive": "Unarchive",
+      "save": "Save",
+      "confirm": "Confirm",
+      "or": "or",
+      "load_more": "Load more",
+      "changes_saved": "Changes saved",
+      "error": "Error occured",
+      "no_result_found" : "Sorry! We couldn't find any match for your search",
+      "try_another_search": "Please try another search",
+      "receive_newsletter": "Receive the newsletter",
+      "subscribe": "Subscribe"
+    },
+    "userMenu": {
+      "logout": "Logout",
+      "back_apschool": "Back to APSchool",
+      "actions" : "Actions",
+      "languages_options": "Languages"
+    },
+    "forms": {
+      "error_message_field_required": "Please fill this field"
+    },
+    "sorting": {
+      "ascendingOrder": "Ascending order",
+      "descendingOrder": "Descending order",
+      "sortOrder": "Sort order"
+    },
+    "errors": {
+      "required_field": "This field is required"
+    }
+  },
+  "filters": {
+    "filters_date": {
+      "title": "Publication date",
+      "list": {
+        "today": "Today",
+        "yesterday": "Yesterday",
+        "last_week": "Last week",
+        "chose_date": "Choose a date",
+        "from": "From",
+        "to": "To"
+      }
+    },
+    "filters_category": {
+      "title": "Category",
+      "list": {
+        "New feature": "New feature",
+        "Bug fix": "Bug fix",
+        "Improvement": "Improvement",
+        "Other": "Other"
+      }
+    },
+    "filters_modules": {
+      "title": "Modules",
+      "list": {
+        "Base": "Base",
+        "Messagerie": "Mailbox",
+        "Réservation locaux": "Classrooms",
+        "Valves et news": "News",
+        "Distributeurs": "Distributors",
+        "Évènements": "Events",
+        "Plaines": "Extracurricular activity",
+        "Garderie": "Childcare",
+        "Internat": "Internship",
+        "Repas": "Reservation",
+        "Webshop": "Webshop",
+        "Financier": "Financial",
+        "Coda": "Coda",
+        "Pédagogique": "Pedagogical",
+        "Discipline": "Discipline",
+        "Absences": "Absences",
+        "Bulletin": "Report card",
+        "Suivi pédagogique": "Educational follow-up",
+        "Réunions parents": "Meetings",
+        "Journal de classe": "Class journal",
+        "Ramassages": "Pickups",
+        "Pointages": "Check-in",
+        "ISBW": "ISBW",
+        "Importation": "Importation",
+        "Retards": "Delays",
+        "Debug": "Debug",
+        "Journaux éducateurs": "Educators diaries",
+        "FWB": "FWB",
+        "Recharge des comptes": "Account recharge",
+        "Paiement Digiteal": "Digiteal payment",
+        "Paiement Payzen": "Payzen payment",
+        "Paiement Mollie": "Mollie payment",
+        "Paiement Bancontact": "Bancontact payment"
+      }
+    },
+    "filters_state": {
+      "title": "State",
+      "list": {
+        "all": "All",
+        "scheduled": "Scheduled",
+        "published": "Published",
+        "draft": "Draft",
+        "archived": "Archived"
+      }
+    },
+    "filters_sort": {
+      "title": "Sort by",
+      "list": {
+        "id": "ID",
+        "publicationDate": "Publication date",
+        "modificationDate": "Modification date",
+        "title": "Title"
+      }
+    },
+    "filters_category_message": {
+      "title": "Category",
+      "list": {
+        "Rejected": "Rejected",
+        "To explore": "To explore",
+        "Undefined": "Undefined",
+        "V4": "V4"
+      }
+    }
+  },
+  "pages": {
+    "navlinks": {
+      "home": "Home",
+      "mailbox": "Mailbox",
+      "patchNote": "Patch Note",
+      "newsletter": "Newsletter",
+      "commits": "Commits",
+      "leaveMessage": "Leave a message"
+    },
+    "mailbox": {
+      "mailbox": "Mailbox",
+      "messages": "Messages",
+      "seach_message": "Search a message",
+      "filtered_by": "Filtered by",
+      "mail_status": "Status",
+      "read": "Read",
+      "unread": "Unread",
+      "all": "All",
+      "from": "From",
+      "subject": "Subject",
+      "select_message": "Select a message",
+      "no_email": "No email found for this request"
+    },
+    "login": {
+      "login": "Login",
+      "login_title": "Login to Patch Note",
+      "login_username": "Username",
+      "login_password": "Password",
+      "login_submit": "Login",
+      "login_error": "This fields is required."
+    },
+    "home_customer": {
+      "home_customer": "Home",
+      "home_customer_subtitle": "All notes"
+    },
+    "patch_note": {
+      "patch_note_title": "Patch note management",
+      "patch_note_id": "ID",
+      "patch_note_title_article": "Title",
+      "patch_note_description_article": "Description",
+      "patch_note_category": "Category",
+      "patch_note_category_select": "Select a category",
+      "patch_note_module": "Module",
+      "patch_note_module_select": "Select a module",
+      "patch_note_date": "Publication date",
+      "patch_note_date_update": "Modification date",
+      "patch_note_author": "Author",
+      "patch_note_version": "Version",
+      "patch_note_action": "Action",
+      "patch_note_no_result": "No result",
+      "patch_note_add": "Add a note",
+      "patch_note_update": "Update note",
+      "patch_note_show": "View note",
+      "patch_note_add_draft": "Save as draft",
+      "patch_note_status": "Status",
+      "patch_note_status_draft": "Draft",
+      "patch_note_status_publish": "Publish",
+      "patch_note_deleted": "Article deleted",
+      "patch_note_archived": "Article archived"
+    },
+    "newsletter": {
+      "newsletter_title": "Newsletter management",
+      "newsletter_creation_question": "Do you want to create a newsletter?",
+      "newsletter_title_main": "Title",
+      "newsletter_title_fr": "Title | FR",
+      "newsletter_title_nl": "Title | NL",
+      "newsletter_title_en": "Title | EN",
+      "newsletter_summary_main": "Summary",
+      "newsletter_summary_fr": "Summary | FR",
+      "newsletter_summary_nl": "Summary | NL",
+      "newsletter_summary_en": "Summary | EN",
+      "newsletter_description_main": "Description",
+      "newsletter_description_fr": "Description | FR",
+      "newsletter_description_nl": "Description | NL",
+      "newsletter_description_en": "Description | EN",
+      "newsletter_articles_select": "Newsletter articles",
+      "newsletter_articles_select_short": "Select articles",
+      "newsletter_articles_select_all": "Select all",
+      "newsletter_date": "Publication date",
+      "newsletter_date_update": "Update date",
+      "newsletter_author": "Author",
+      "newsletter_version": "Version",
+      "newsletter_number_articles": "Number of articles",
+      "newsletter_articles_included": "Included articles",
+      "newsletter_actions": "Actions",
+      "newsletter_no_result": "No result",
+      "newsletter_add": "Add a newsletter",
+      "newsletter_content_creation": "Multilingual content creation",
+      "newsletter_update": "Update newsletter",
+      "newsletter_show": "View newsletter",
+      "newsletter_add_draft": "Save as draft",
+      "newsletter_status": "Status",
+      "newsletter_status_draft": "Draft",
+      "newsletter_status_publish": "To publish",
+      "newsletter_published": "Published",
+      "newsletter_planned": "Planned"
+    },
+    "commit": {
+      "commit_title": "Commits",
+      "commit_author": "Author",
+      "commit_start_date": "From",
+      "commit_end_date": "To",
+      "commit_branch": "Branch",
+      "commit_sha": "Commit",
+      "commit_message": "Message",
+      "commit_date": "Date"
+    }
+  },
+  "modales": {
+    "sendingMessage": {
+      "success": {
+        "title": "Message sent",
+        "message": "Thank you for your recommendation"
+      },
+      "alert": {
+        "title": "Attention",
+        "message": "Are you sure you want to delete your message?"
+      }
+    },
+    "article": {
+      "article_creation": {
+        "success": {
+          "title": "Article created successfully",
+          "message": ""
+        },
+        "article_creation_draft": {
+          "success": {
+            "title": "Draft saved",
+            "message": ""
+          },
+          "alert": {
+            "title": "Attention",
+            "message": "Are you sure you want to delete your message?"
+          }
+        }
+      },
+      "article_updating": {
+        "success": {
+          "title": "Operation successful",
+          "message": "Modifications have been saved successfully"
+        },
+        "article_creation_draft": {
+          "success": {
+            "title": "Draft saved",
+            "message": ""
+          },
+          "alert": {
+            "title": "Attention",
+            "message": "Are you sure you want to delete your message?"
+          }
+        }
+      }
+    },
+    "messageRecommandationStatut": {
+      "title": "Status management",
+      "add_status": "Add a status"
+    },
+    "newsletter": {
+      "newsletter_articles_included": "Included articles",
+      "newsletter_articles_latest": "Latest articles",
+      "newsletter_articles_older": "Older articles"
+    }
+  }
+}

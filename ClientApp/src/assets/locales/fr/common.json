@@ -1,0 +1,308 @@
+{
+  "selected_language": "fr",
+  "main": {
+    "languages": {
+      "fr": "Français",
+      "en": "Anglais",
+      "nl": "Néerlandais"
+    },
+    "languagesISO": {
+      "fr": "FR",
+      "en": "EN",
+      "nl": "NL"
+    },
+    "general": {
+      "title": "Patch Note",
+      "filter": "Filtres",
+      "search": "Rechercher",
+      "footer": "© 2023 Patch Note",
+      "search_placeholder": "Rechercher une note",
+      "cancel": "Annuler",
+      "submit": "Envoyer",
+      "add": "Ajouter",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "show": "Voir",
+      "archive": "Archiver",
+      "unarchive": "Désarchiver",
+      "save": "Enregistrer",
+      "confirm": "Confirmer",
+      "or": "ou",
+      "load_more": "Afficher plus",
+      "changes_saved": "Modifications enregistrées",
+      "error": "Une erreur est survenue",
+      "no_result_found" : "Oups! Aucun résultat ne correspond à votre recherche",
+      "try_another_search": "Veuillez entrer de nouveaux paramètres de recherche",
+      "receive_newsletter": "Recevez notre newsletter",
+      "subscribe": "S'inscrire"
+    },
+    "userMenu": {
+      "logout": "Se déconnecter",
+      "back_apschool": "Retourner sur APSchool",
+      "actions" : "Actions",
+      "languages_options": "Langues"
+    },
+    "forms": {
+      "error_message_field_required": "Veuillez completer ce champ"
+    },
+    "sorting": {
+      "ascendingOrder": "Ordre croissant",
+      "descendingOrder": "Ordre décroissant",
+      "sortOrder": "Ordre du tri"
+    },
+    "errors": {
+      "required_field": "Ce champ est requis"
+    }
+  },
+  "filters": {
+    "filters_date": {
+      "title": "Date de publication",
+      "list": {
+        "today": "Aujourd'hui",
+        "yesterday": "Hier",
+        "last_week": "La semaine passée",
+        "chose_date": "Choisir une date",
+        "from": "Du",
+        "to": "Au"
+      }
+    },
+    "filters_category": {
+      "title": "Catégorie",
+      "list": {
+        "New feature": "Nouveauté",
+        "Bug fix": "Correction de bug",
+        "Improvement": "Amélioration",
+        "Other": "Autre"
+      }
+    },
+    "filters_modules": {
+      "title": "Modules",
+      "list": {
+        "Base": "Base",
+        "Messagerie": "Messagerie",
+        "Réservation locaux": "Réservation locaux",
+        "Valves et news": "Valves et news",
+        "Distributeurs": "Distributeurs",
+        "Évènements": "Évènements",
+        "Plaines": "Plaines",
+        "Garderie": "Garderie",
+        "Internat": "Internat",
+        "Repas": "Repas",
+        "Webshop": "Webshop",
+        "Financier": "Financier",
+        "Coda": "Coda",
+        "Pédagogique": "Pédagogique",
+        "Discipline": "Discipline",
+        "Absences": "Absences",
+        "Bulletin": "Bulletin",
+        "Suivi pédagogique": "Suivi pédagogique",
+        "Réunions parents": "Réunions parents",
+        "Journal de classe": "Journal de classe",
+        "Ramassages": "Ramassages",
+        "Pointages": "Pointages",
+        "ISBW": "ISBW",
+        "Importation": "Importation",
+        "Retards": "Retards",
+        "Debug": "Debug",
+        "Journaux éducateurs": "Journaux éducateurs",
+        "FWB": "FWB",
+        "Recharge des comptes": "Recharge des comptes",
+        "Paiement Digiteal": "Paiement Digiteal",
+        "Paiement Payzen": "Paiement Payzen",
+        "Paiement Mollie": "Paiement Mollie",
+        "Paiement Bancontact": "Paiement Bancontact"
+      }
+    },
+    "filters_state": {
+      "title": "Etat",
+      "list": {
+        "all": "Tout",
+        "scheduled": "Planifié",
+        "published": "Publié",
+        "draft": "Brouillon",
+        "archived": "Archivé"
+      }
+    },
+    "filters_sort": {
+      "title": "Trier par",
+      "list": {
+        "id": "ID",
+        "publicationDate": "Date de publication",
+        "modificationDate": "Date de modification",
+        "title": "Titre"
+      }
+    },
+    "filters_category_message": {
+      "title": "Categorie",
+      "list": {
+        "Rejected": "Rejeté",
+        "To explore": "A explorer",
+        "Undefined": "Non défini",
+        "V4": "V4"
+      }
+    }
+  },
+  "pages": {
+    "navlinks": {
+      "home": "Accueil",
+      "mailbox": "Messagerie",
+      "patchNote": "Patch Note",
+      "newsletter": "Newsletter",
+      "commits": "Commits",
+      "leaveMessage": "Laisser un message"
+    },
+    "mailbox": {
+      "mailbox": "Messagerie",
+      "messages": "Messages",
+      "seach_message": "Recherche un message",
+      "filtered_by": "Filtré par",
+      "mail_status": "Statut",
+      "read": "Lu",
+      "unread": "Non-lu",
+      "all": "Tout",
+      "from": "De",
+      "subject": "Sujet",
+      "select_message": "Veuillez sélectionner un message",
+      "no_email": "Aucun message correspondant à votre recherche"
+    },
+    "login": {
+      "login": "Login",
+      "login_title": "Se connecter au Patch Note",
+      "login_username": "Identifiant",
+      "login_password": "Mot de passe",
+      "login_submit": "Se connecter",
+      "login_error": "Le champ est requis."
+    },
+    "home_customer": {
+      "home_customer": "Accueil",
+      "home_customer_subtitle": "Toutes les mises à jour"
+    },
+    "patch_note": {
+      "patch_note_title": "Gestion du patch note",
+      "patch_note_id": "Id",
+      "patch_note_title_article": "Titre",
+      "patch_note_description_article": "Description",
+      "patch_note_category": "Catégorie",
+      "patch_note_category_select": "Sélectionner une catégorie",
+      "patch_note_module": "Module",
+      "patch_note_module_select": "Sélectionner un module",
+      "patch_note_date": "Publication",
+      "patch_note_date_update": "Modification",
+      "patch_note_author": "Auteur",
+      "patch_note_version": "Version",
+      "patch_note_action": "Action",
+      "patch_note_no_result": "Aucun résultat",
+      "patch_note_add": "Ajouter une note",
+      "patch_note_update": "Modification de la note",
+      "patch_note_show": "Consultation de la note",
+      "patch_note_add_draft": "Enregistrer le brouillon",
+      "patch_note_status": "Statut",
+      "patch_note_status_draft": "Brouillon",
+      "patch_note_status_publish": "A publier",
+      "patch_note_deleted": "Article supprimé",
+      "patch_note_archived": "Article archivé"
+    },
+    "newsletter": {
+        "newsletter_title": "Gestion des newsletter",
+        "newsletter_creation_question": "Voulez-vous créer une newsletter ?",
+        "newsletter_title_main": "Titre",
+        "newsletter_title_fr": "Titre | FR",
+        "newsletter_title_nl": "Titre | NL",
+        "newsletter_title_en": "Titre | EN",
+        "newsletter_summary_main": "Résumé",
+        "newsletter_summary_fr": "Résumé | FR",
+        "newsletter_summary_nl": "Résumé | NL",
+        "newsletter_summary_en": "Résumé | EN",
+        "newsletter_description_main": "Description",
+        "newsletter_description_fr": "Description | FR",
+        "newsletter_description_nl": "Description | NL",
+        "newsletter_description_en": "Description | EN",
+        "newsletter_articles_select": "Articles de la newsletter",
+        "newsletter_articles_select_short": "Sélectionner les articles",
+        "newsletter_articles_select_all": "Tout sélectionner",
+        "newsletter_date": "Date de publication",
+        "newsletter_date_update": "Date de modification",
+        "newsletter_author": "Auteur",
+        "newsletter_version": "Version",
+        "newsletter_number_articles": "Nbr d'articles",
+        "newsletter_articles_included": "Articles inclus",
+        "newsletter_actions": "Actions",
+        "newsletter_no_result": "Aucun résultat",
+        "newsletter_add": "Ajouter une newsletter",
+        "newsletter_content_creation": "Création du contenu mutlilingue",
+        "newsletter_update": "Modification de la newsletter",
+        "newsletter_show": "Consultation de la newsletter",
+        "newsletter_add_draft": "Enregistrer le brouillon",
+        "newsletter_status": "Statut",
+        "newsletter_status_draft": "Brouillon",
+        "newsletter_status_publish": "A publier",
+        "newsletter_published": "Publiées",
+        "newsletter_planned": "Planifiées"
+        },
+    "commit": {
+      "commit_title": "Commits",
+      "commit_author": "Auteur",
+      "commit_start_date": "Date de début",
+      "commit_end_date": "Date de fin",
+      "commit_branch": "Branche",
+      "commit_sha": "Commit",
+      "commit_message": "Message",
+      "commit_date": "Date"
+    }
+  },
+  "modales": {
+    "sendingMessage": {
+      "success": {
+        "title": "Message envoyé",
+        "message": "Merci pour votre recommandation"
+      },
+      "alert": {
+        "title": "Attention",
+        "message": "Etes-vous sûr(e) de vouloir effacer votre message?"
+      }
+    },
+    "article": {
+      "article_creation": {
+        "success": {
+          "title": "Article créé avec succès",
+          "message": ""
+        },
+        "article_creation_draft": {
+          "success": {
+            "title": "Brouillon enregistré",
+            "message": ""
+          },
+          "alert": {
+            "title": "Attention",
+            "message": "Etes-vous sûr(e) de vouloir effacer votre message?"
+          }
+        }
+      },
+        "article_updating": {
+          "success": {
+            "title": "Opération réussie",
+            "message": "Les modifications ont été enregistrées avec succès"
+          },
+          "article_creation_draft": {
+            "success": {
+              "title": "Brouillon enregistré",
+              "message": ""
+            },
+            "alert": {
+              "title": "Attention",
+              "message": "Etes-vous sûr(e) de vouloir effacer votre message?"
+            }
+          }
+        }
+      },
+    "messageRecommandationStatut": {
+        "title": "Gestion du statut",
+        "add_status": "Ajouter un statut"
+    },
+    "newsletter": {
+      "newsletter_articles_included": "Articles inclus",
+      "newsletter_articles_latest": "Derniers articles",
+      "newsletter_articles_older": "Articles plus anciens"
+    }
+  }
+  }

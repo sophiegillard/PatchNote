@@ -1,0 +1,76 @@
+/* inspired by: https://css-tricks.com/responsive-data-tables/ */
+
+.responsiveTable td .tdBefore {
+    display: none;
+}
+
+@media screen and (max-width: 60em) {
+    /*
+      Force table elements to not behave like tables anymore
+      Hide table headers (but not display: none; for accessibility)
+    */
+
+    .responsiveTable table,
+    .responsiveTable thead,
+    .responsiveTable tbody,
+    .responsiveTable th,
+    .responsiveTable td,
+    .responsiveTable tr {
+        display: block;
+    }
+
+    .responsiveTable thead tr {
+        background-color: red;
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .responsiveTable tbody tr {
+        padding: 0.25em;
+    }
+
+    .responsive tr{
+        display: table-row;
+        flex-flow: row wrap;
+        transition: 0.5s;
+
+    }
+
+    .responsiveTable td.pivoted {
+        /* Behave like a "row" */
+
+        display:block;
+        width: 100%;
+
+        border: none !important;
+        position: relative;
+        padding-left: calc(50% + 10px) !important;
+        text-align: right !important;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        border-bottom: 1px solid lightgrey !important;
+    }
+
+    .responsiveTable td .tdBefore {
+        /* Now like a table header */
+        position: absolute;
+        display: block;
+
+        /* Top/left values mimic padding */
+        left: 1rem;
+        width: calc(50% - 20px);
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+        text-align: end;
+        font-weight: 600;
+    }
+
+    .responsiveTable td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        text-align: left;
+        font-weight: 600;
+    }
+}
