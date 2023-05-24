@@ -2,9 +2,9 @@
 
 namespace PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 
-public class Categorie
+public class Module
 {
-    public Categorie()
+    public Module()
     {
         Articles = new HashSet<Article>();
     }
