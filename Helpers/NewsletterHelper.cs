@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 using PatchNote.Api.Models.DTOs.Responses;
 
 namespace PatchNote.Api.Helpers
 {
-   public static class ArticleHelper
+    public static class ArticleHelper
     {
         public static async Task<List<NewsletterArticlesListDto>> GetArticlesByCategory(
-            patchNoteDbContext dbContext, ApschoolDbContext apSchoolDbContext , int newsletterId, int categoryId)
+            patchNoteDbContext dbContext, int newsletterId, int categoryId)
         {
             var articlesWithNewsletter = await dbContext.Articles
+                .Include(a => a.Module)
                 .Where(a => a.NewsletterId == newsletterId
                     && a.IsBrouillon == 0
                     && a.IsArchive == 0
@@ -26,8 +26,6 @@ namespace PatchNote.Api.Helpers
 
             foreach (var a in articlesWithNewsletter)
             {
-                var module = apSchoolDbContext.Modules
-                    .FirstOrDefault(m => m.id == a.ModuleId);
 
                 var newsletterArticlesListDto = new NewsletterArticlesListDto
                 {
@@ -39,7 +37,7 @@ namespace PatchNote.Api.Helpers
                     DatePublicationShort = a.DatePublication.ToString("dd-MM-yy"),
                     NewsletterId = a.NewsletterId,
                     CategorieId = a.CategorieId,
-                    Module = module?.nom
+                    Module = a.Module?.Nom
                 };
 
                 newsletterArticlesListDtos.Add(newsletterArticlesListDto);
@@ -53,73 +51,33 @@ namespace PatchNote.Api.Helpers
         {
             switch (userLanguage)
             {
-                 case "FR":
+                case "FR":
                     switch (module)
                     {
                         case "Base":
                             return "Base";
+                        case "Commande":
+                            return "Commande";
+                        case "Menu":
+                            return "Menu";
+                        case "Dashboard":
+                            return "Dashboard";
+                        case "Livraison":
+                            return "Livraison";
                         case "Messagerie":
                             return "Messagerie";
-                        case "Réservation locaux":
-                            return "Locaux";
-                        case "Valves et news":
-                            return "Actualités";
-                        case "Distributeurs":
-                            return "Distributeurs";
-                        case "Évènements":
-                            return "Évènements";
-                        case "Plaines":
-                            return "Centre Récréatif";
-                        case "Garderie":
-                            return "Extrascolaire";
-                        case "Internat":
-                            return "Internat";
-                        case "Repas":
-                            return "Réservation";
-                        case "Webshop":
-                            return "Webshop";
-                        case "Financier":
-                            return "Financier";
-                        case "Coda":
-                            return "Coda";
-                        case "Pédagogique":
-                            return "Pédagogique";
-                        case "Discipline":
-                            return "Discipline";
-                        case "Absences":
-                            return "Absences";
-                        case "Bulletin":
-                            return "Bulletin";
-                        case "Suivi pédagogique":
-                            return "Suivi pédagogique";
-                        case "Réunions parents":
-                            return "Réunions";
-                        case "Journal de classe":
-                            return "Journal de classe";
-                        case "Ramassages":
-                            return "Ramassages";
-                        case "Pointages":
-                            return "Pointages";
-                        case "ISBW":
-                            return "ISBW";
-                        case "Importation":
-                            return "Importation";
-                        case "Retards":
-                            return "Delays";
-                        case "Debug":
-                            return "Debug";
-                        case "Journaux éducateurs":
-                            return "Journaux éducateurs";
-                        case "FWB":
-                            return "FWB";
-                        case "Recharge des comptes":
-                            return "Recharge of accounts";
-                        case "Paiement Digiteal":
-                            return "Digiteal Payment";
-                        case "Paiement Payzen":
-                            return "Payzen Payment";
-                        case "Paiement Mollie":
-                            return "Mollie Payment";
+                        case "Paiement":
+                            return "Paiement";
+                        case "Services":
+                            return "Services";
+                        case "Promotion":
+                            return "Promotion";
+                        case "Légilsation":
+                            return "Légilsation";
+                        case "Hygiène":
+                            return "Hygiène";
+                        case "Autre":
+                            return "Autre";
                         default:
                             return module;
                     }
@@ -129,68 +87,28 @@ namespace PatchNote.Api.Helpers
                     {
                         case "Base":
                             return "Base";
+                        case "Commande":
+                            return "Order";
+                        case "Menu":
+                            return "Menu";
+                        case "Dashboard":
+                            return "Dashboard";
+                        case "Livraison":
+                            return "Delivery";
                         case "Messagerie":
-                            return "Mailbox";
-                        case "Réservation locaux":
-                            return "Classrooms";
-                        case "Valves et news":
-                            return "News";
-                        case "Distributeurs":
-                            return "Distributors";
-                        case "Évènements":
-                            return "Events";
-                        case "Plaines":
-                            return "Extracurricular activity";
-                        case "Garderie":
-                            return "Childcare";
-                        case "Internat":
-                            return "Internship";
-                        case "Repas":
-                            return "Reservation";
-                        case "Webshop":
-                            return "Webshop";
-                        case "Financier":
-                            return "Financial";
-                        case "Coda":
-                            return "Coda";
-                        case "Pédagogique":
-                            return "Pédagogical";
-                        case "Discipline":
-                            return "Discipline";
-                        case "Absences":
-                            return "Absences";
-                        case "Bulletin":
-                            return "Report card";
-                        case "Suivi pédagogique":
-                            return "Educational follow-upt";
-                        case "Réunions parents":
-                            return "Meetings";
-                        case "Journal de classe":
-                            return "Class journal";
-                        case "Ramassages":
-                            return "Pickups";
-                        case "Pointages":
-                            return "Check-in";
-                        case "ISBW":
-                            return "ISBW";
-                        case "Importation":
-                            return "Importation";
-                        case "Retards":
-                            return "Delays";
-                        case "Debug":
-                            return "Debug";
-                        case "Journaux éducateurs":
-                            return "Educators diaries";
-                        case "FWB":
-                            return "FWB";
-                        case "Recharge des comptes":
-                            return "Recharge of accounts";
-                        case "Paiement Digiteal":
-                            return "Digiteal Payment";
-                        case "Paiement Payzen":
-                            return "Payzen Payment";
-                        case "Paiement Mollie":
-                            return "Mollie Payment";
+                            return "Messaging";
+                        case "Paiement":
+                            return "Payment";
+                        case "Services":
+                            return "Services";
+                        case "Promotion":
+                            return "Promotion";
+                        case "Légilsation":
+                            return "Legislation";
+                        case "Hygiène":
+                            return "Hygiene";
+                        case "Autre":
+                            return "Other";
                         default:
                             return module;
                     }
@@ -198,74 +116,34 @@ namespace PatchNote.Api.Helpers
                     switch (module)
                     {
                         case "Base":
-                            return "Baseren";
+                            return "Basis";
+                        case "Commande":
+                            return "Bestelling";
+                        case "Menu":
+                            return "Menu";
+                        case "Dashboard":
+                            return "Dashboard";
+                        case "Livraison":
+                            return "Levering";
                         case "Messagerie":
                             return "Berichten";
-                        case "Réservation locaux":
-                            return "Lokalen";
-                        case "Valves et news":
-                            return "Nieuws";
-                        case "Distributeurs":
-                            return "Automaat";
-                        case "Évènements":
-                            return "Evenementen";
-                        case "Plaines":
-                            return "Buitenschoolse activiteit";
-                        case "Garderie":
-                            return "Kinderopvang";
-                        case "Internat":
-                            return "Internaat";
-                        case "Repas":
-                            return "Reservatie";
-                        case "Webshop":
-                            return "webshop";
-                        case "Financier":
-                            return "Financieel";
-                        case "Coda":
-                            return "coda";
-                        case "Pédagogique":
-                            return "pedagogisch";
-                        case "Discipline":
-                            return "Discipline";
-                        case "Absences":
-                            return "Afwezigheden";
-                        case "Bulletin":
-                            return "Rapport";
-                        case "Suivi pédagogique":
-                            return "Pedagogische begeleiding";
-                        case "Réunions parents":
-                            return "Vergadering";
-                        case "Journal de classe":
-                            return "School agenda";
-                        case "Ramassages":
-                            return "Inzamelingen";
-                        case "Pointages":
-                            return "Check-ins";
-                        case "ISBW":
-                            return "ISBW";
-                        case "Importation":
-                            return "Importeren";
-                        case "Retards":
-                            return "Telaten";
-                        case "Debug":
-                            return "Debuggen";
-                        case "Journaux éducateurs":
-                            return "Agendas van opvoeders";
-                        case "FWB":
-                            return "FWB";
-                        case "Recharge des comptes":
-                            return "Herlaad rekeningen";
-                        case "Paiement Digiteal":
-                            return "Digiteal betaling";
-                        case "Paiement Payzen":
-                            return "Payzen betaling";
-                        case "Paiement Mollie":
-                            return "Mollie betaling";
+                        case "Paiement":
+                            return "Betaling";
+                        case "Services":
+                            return "Diensten";
+                        case "Promotion":
+                            return "Promotie";
+                        case "Légilsation":
+                            return "Wetgeving";
+                        case "Hygiène":
+                            return "Hygiëne";
+                        case "Autre":
+                            return "Overig";
                         default:
-                            return module.ToString();
+                            return module;
                     }
                 default:
-                            return module;
+                    return module;
             }
         }
 
@@ -295,7 +173,7 @@ namespace PatchNote.Api.Helpers
                 .Replace("{{ArticleCategory}}", GetTranslatedModuleName(userLanguage, article.Module));
         }
 
-         public static string GetTranslatedNewslettersTitle(string userLanguage, Newsletter newsletter)
+        public static string GetTranslatedNewslettersTitle(string userLanguage, Newsletter newsletter)
         {
             string translatedNewsletterTitle;
 

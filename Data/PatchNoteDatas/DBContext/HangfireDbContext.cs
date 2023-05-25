@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Common;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.MessageRecommandation;
@@ -8,19 +7,19 @@ using PatchNote.Api.Data.PatchNoteDatas.Entities.MessageRecommandation;
 
 namespace PatchNote.Api.Data.PatchNoteDatas.DBContext;
 
-    public partial class HangfireDbContext : DbContext
+public partial class HangfireDbContext : DbContext
+{
+    public HangfireDbContext()
     {
-        public HangfireDbContext()
-        {
-
-        }
-
-        public HangfireDbContext(DbContextOptions<HangfireDbContext> options)
-            : base(options)
-        {
-        }
-
-        public virtual DbSet<HangfireJob> HangfireJobs { get; set; } 
-
 
     }
+
+    public HangfireDbContext(DbContextOptions<HangfireDbContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<HangfireJob> HangfireJobs { get; set; }
+
+
+}

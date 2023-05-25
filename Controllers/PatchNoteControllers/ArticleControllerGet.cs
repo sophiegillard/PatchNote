@@ -1,30 +1,35 @@
 using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 using PatchNote.Api.Models.DTOs.Responses;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Models.DTOs.Requests;
+using System.Linq.Expressions;
+using PatchNote.Mapper;
+
 
 namespace PatchNote.Api.Controllers.PatchNoteControllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ArticleGetController : ControllerBase
+public class ArticleControllerGet : ControllerBase
 {
+
     private readonly patchNoteDbContext _patchNoteDbContext;
-    private readonly ApschoolDbContext _apschoolDbContext;
-    public ArticleGetController(patchNoteDbContext patchNoteDbContext, ApschoolDbContext apschoolDbContext)
+    private readonly IMapper _mapper;
+
+
+    public ArticleControllerGet(patchNoteDbContext patchNoteDbContext, IMapper mapper)
     {
         _patchNoteDbContext = patchNoteDbContext;
-
-        _apschoolDbContext = apschoolDbContext;
+        _mapper = mapper;
     }
 
 
-    [HttpGet("/article", Name = "GetArticles")]
-    public IActionResult GetArticles()
+    [HttpGet("/article", Name = "GetAllArticles")]
+    public IActionResult GetAllArticles()
     {
         var articles = _patchNoteDbContext.Articles
                     .Include(a => a.Categorie)
@@ -42,21 +47,7 @@ public class ArticleGetController : ControllerBase
         foreach (var article in articles)
         {
 
-            var articleDisplayDto = new ArticleDisplayDto
-            {
-                Id = article.Id,
-                TitreFR = article.TitreFR,
-                ContenuFR = article.ContenuFR,
-                TitreEN = article.TitreEN,
-                ContenuEN = article.ContenuEN,
-                TitreNL = article.TitreNL,
-                ContenuNL = article.ContenuNL,
-                Categorie = article?.Categorie?.Nom,
-                DatePublication = article?.DatePublication.ToString("yyyy-MM-dd"), // format the date here
-                Module = article?.Module?.Nom,
-                NewsletterId = article?.NewsletterId
-            };
-
+            var articleDisplayDto = _mapper.Map<ArticleDisplayDto>(article);
             articleDisplayDtos.Add(articleDisplayDto);
         }
 
@@ -72,144 +63,82 @@ public class ArticleGetController : ControllerBase
         IQueryable<Article> articlesQuery = _patchNoteDbContext.Articles
                                              .OrderByDescending(a => a.Id);
 
-        switch (filterParams.FilterType)
+        // -- apply filters by article type--
+        articlesQuery = filterParams.FilterType switch
         {
-            case "all":
-                articlesQuery = articlesQuery.OrderByDescending(a => a.DatePublication);
-                break;
-            case "scheduled":
-                articlesQuery = articlesQuery.Where(a => a.IsBrouillon == 0 && a.IsArchive == 0 && a.DatePublication.Date > DateTime.Today);
-                break;
-            case "published":
-                articlesQuery = articlesQuery.Where(a => a.IsBrouillon == 0 && a.IsArchive == 0 && a.DatePublication.Date <= DateTime.Today);
-                break;
-            case "draft":
-                articlesQuery = articlesQuery.Where(a => a.IsBrouillon == 1 && a.IsArchive == 0);
-                break;
-            case "archive":
-                articlesQuery = articlesQuery.Where(a => a.IsArchive == 1);
-                break;
-            default:
-                break;
-        }
+            "all" => articlesQuery.OrderByDescending(a => a.DatePublication),
+            "scheduled" => articlesQuery.Where(a => a.IsBrouillon == 0 && a.IsArchive == 0 && a.DatePublication.Date > DateTime.Today),
+            "published" => articlesQuery.Where(a => a.IsBrouillon == 0 && a.IsArchive == 0 && a.DatePublication.Date <= DateTime.Today),
+            "draft" => articlesQuery.Where(a => a.IsBrouillon == 1 && a.IsArchive == 0),
+            "archive" => articlesQuery.Where(a => a.IsArchive == 1),
+            _ => articlesQuery
+        };
+        // -- END --
 
-        if (filterParams.CategoryId.HasValue)
-        {
-            articlesQuery = articlesQuery.Where(a => a.CategorieId == filterParams.CategoryId.Value);
-        }
+        // -- apply filters --
+        articlesQuery = articlesQuery
+        .Where(a => !filterParams.CategoryId.HasValue || a.CategorieId == filterParams.CategoryId.Value)
+        .Where(a => !filterParams.ModuleId.HasValue || a.ModuleId == filterParams.ModuleId.Value)
+        .Where(a => !filterParams.StartDate.HasValue || a.DatePublication.Date >= filterParams.StartDate.Value.Date)
+        .Where(a => !filterParams.EndDate.HasValue || a.DatePublication.Date <= filterParams.EndDate.Value.Date.AddDays(1).AddTicks(-1));
+        // -- END --
 
-        if (filterParams.ModuleId.HasValue)
+        // -- apply sorting --
+        var sortingOptions = new Dictionary<string, Expression<Func<Article, object>>>
         {
-            articlesQuery = articlesQuery.Where(a => a.ModuleId == filterParams.ModuleId.Value);
-        }
+            { "PublicationDate", a => a.DatePublication },
+            { "ModificationDate", a => a.DateModification },
+            { "Id", a => a.Id },
+            { "Titre", a => a.TitreFR }
+        };
 
-        if (filterParams.StartDate.HasValue)
+        if (sortingOptions.ContainsKey(filterParams.SortColumn))
         {
-            var searchStartDate = filterParams.StartDate.Value.Date;
-            articlesQuery = articlesQuery.Where(a => a.DatePublication.Date >= searchStartDate);
+            var sortExpression = sortingOptions[filterParams.SortColumn];
+            articlesQuery = filterParams.SortDirection ? articlesQuery.OrderBy(sortExpression) : articlesQuery.OrderByDescending(sortExpression);
         }
+        // -- End Sorting -- 
 
-        if (filterParams.EndDate.HasValue)
-        {
-            var searchEndDate = filterParams.EndDate.Value.Date.AddDays(1).AddTicks(-1);
-            articlesQuery = articlesQuery.Where(a => a.DatePublication.Date <= searchEndDate);
-        }
-
-        // apply sorting
-        if (filterParams.SortColumn == "PublicationDate")
-        {
-            if (filterParams.SortDirection)
-            {
-                articlesQuery = articlesQuery.OrderBy(a => a.DatePublication);
-            }
-            else
-            {
-                articlesQuery = articlesQuery.OrderByDescending(a => a.DatePublication);
-            }
-        }
-        if (filterParams.SortColumn == "ModificationDate")
-        {
-            if (filterParams.SortDirection)
-            {
-                articlesQuery = articlesQuery.OrderBy(a => a.DateModification);
-            }
-            else
-            {
-                articlesQuery = articlesQuery.OrderByDescending(a => a.DateModification);
-            }
-        }
-        else if (filterParams.SortColumn == "Id")
-        {
-            if (filterParams.SortDirection)
-            {
-                articlesQuery = articlesQuery.OrderBy(a => a.Id);
-            }
-            else
-            {
-                articlesQuery = articlesQuery.OrderByDescending(a => a.Id);
-            }
-        }
-        else if (filterParams.SortColumn == "Titre")
-        {
-            if (filterParams.SortDirection)
-            {
-                articlesQuery = articlesQuery.OrderBy(a => a.TitreFR);
-            }
-            else
-            {
-                articlesQuery = articlesQuery.OrderByDescending(a => a.TitreFR);
-            }
-        }
-
+        // Calculate pagination details
         // Get total count of articles matching the filters
         var totalCount = articlesQuery.Count();
 
         // Calculate pagination details based on total count and page size
         var totalPages = (int)Math.Ceiling((double)totalCount / filterParams.Limit);
-        var currentPage = filterParams.Page;
-        if (currentPage < 1)
-        {
-            currentPage = 1;
-        }
-        if (currentPage > totalPages)
-        {
-            currentPage = totalPages;
-        }
-        var startRow = (currentPage - 1) * filterParams.Limit + 1;
-        var endRow = Math.Min(startRow + filterParams.Limit - 1, totalCount);
+        // var currentPage = filterParams.Page;
+
+        // if (currentPage < 1)
+        // {
+        //     currentPage = 1;
+        // }
+        // if (currentPage > totalPages)
+        // {
+        //     currentPage = totalPages;
+        // }
+        var currentPage = Math.Clamp(filterParams.Page, 1, totalPages);
+        // -- End  -- 
 
         var articles = articlesQuery
         .Include(a => a.Categorie)
+        .Include(a => a.Module)
         .Skip((filterParams.Page - 1) * filterParams.Limit)
         .Take(filterParams.Limit)
         .ToList();
-
-
-
-
 
         if (articles == null)
         {
             return NotFound();
         }
 
-
         // Map articles to DTOs
-        var articleDetailsDisplayDtos = articles.Select(article => new ArticleDetailsDisplayDto
+        var articleDetailsDisplayDtos = new List<ArticleDetailsDisplayDto>();
+
+        foreach (var article in articles)
         {
-            Id = article.Id,
-            TitreFR = article.TitreFR,
-            DescriptionFR = article.ContenuFR,
-            Categorie = article?.Categorie?.Nom,
-            DatePublication = article.DatePublication.ToString("yyyy-MM-dd"),
-            DateModification = article.DateModification.ToString("dd-MM-yyyy"),
-            Module = _apschoolDbContext.Modules.FirstOrDefault(m => m.id == article.ModuleId)?.nom,
-            AuteurId = article.AuteurId,
-            Version = article.Version,
-            IsBrouillon = article.IsBrouillon,
-            IsArchive = article.IsArchive,
-            IsNew = (DateTime.Today - article.DatePublication.Date).TotalDays <= 15 // Check if article is new
-        }).ToList();
+            var articleDetailsDisplayDto = _mapper.Map<ArticleDetailsDisplayDto>(article);
+            articleDetailsDisplayDto.IsNew = (DateTime.Today - article.DatePublication.Date).TotalDays <= 15;
+            articleDetailsDisplayDtos.Add(articleDetailsDisplayDto);
+        }
 
         // Build response object containing both the articles and pagination details
         var response = new
@@ -239,23 +168,9 @@ public class ArticleGetController : ControllerBase
                                                                             int? _limit,
                                                                             string? search, int userId)
     {
-        var utilisateurModules = _apschoolDbContext.Utilisateurs
-        .Include(u => u.EcoleAuxiliaire)
-            .ThenInclude(ea => ea.Ecole)
-        .Include(u => u.EcoleAuxiliaire.EcoleAuxiliaireModules)
-            .ThenInclude(eam => eam.Module)
-        .SingleOrDefault(u => u.Id == userId)
-        ?.EcoleAuxiliaire
-        ?.EcoleAuxiliaireModules
-        ?.Select(eam => eam.Module);
-
-        var arrayModules = utilisateurModules.Select(m => m.id).ToArray();
-        var moduleIds = utilisateurModules.Select(m => m.id).ToList();
-
         IQueryable<Article> articlesQuery = _patchNoteDbContext.Articles
                                                 .OrderByDescending(a => a.DatePublication)
-                                                .Where(a => a.IsBrouillon == 0 && a.IsArchive == 0 && a.DatePublication.Date <= DateTime.Today)
-                                                .Where(a => moduleIds.Contains(a.ModuleId)); // Filter by module ID
+                                                .Where(a => a.IsBrouillon == 0 && a.IsArchive == 0 && a.DatePublication.Date <= DateTime.Today);
 
         // Add search filter
         if (!string.IsNullOrEmpty(search))
@@ -270,32 +185,16 @@ public class ArticleGetController : ControllerBase
         }
 
 
-        if (filterParams.CategoryId.HasValue)
-        {
-            articlesQuery = articlesQuery.Where(a => a.CategorieId == filterParams.CategoryId.Value);
-        }
-
-        if (filterParams.ModuleId.HasValue)
-        {
-            articlesQuery = articlesQuery.Where(a => a.ModuleId == filterParams.ModuleId.Value);
-        }
-
-        if (filterParams.StartDate.HasValue)
-        {
-            var searchStartDate = filterParams.StartDate.Value.Date;
-            articlesQuery = articlesQuery.Where(a => a.DatePublication.Date >= searchStartDate);
-        }
-
-        if (filterParams.EndDate.HasValue)
-        {
-            var searchEndDate = filterParams.EndDate.Value.Date.AddDays(1).AddTicks(-1);
-            articlesQuery = articlesQuery.Where(a => a.DatePublication.Date <= searchEndDate);
-        }
+        // -- apply filters --
+        articlesQuery = articlesQuery
+        .Where(a => !filterParams.CategoryId.HasValue || a.CategorieId == filterParams.CategoryId.Value)
+        .Where(a => !filterParams.ModuleId.HasValue || a.ModuleId == filterParams.ModuleId.Value)
+        .Where(a => !filterParams.StartDate.HasValue || a.DatePublication.Date >= filterParams.StartDate.Value.Date)
+        .Where(a => !filterParams.EndDate.HasValue || a.DatePublication.Date <= filterParams.EndDate.Value.Date.AddDays(1).AddTicks(-1));
+        // -- END --
 
 
-
-
-        // Apply pagination
+        // Apply pagination load more 
         int page = _page ?? 1;
         int limit = _limit ?? 10;
         int offset = (page - 1) * limit;
@@ -304,6 +203,7 @@ public class ArticleGetController : ControllerBase
         // Execute the query and get the articles           
         var articles = await articlesQuery
         .Include(a => a.Categorie)
+        .Include(a => a.Module)
         .Skip((filterParams.Page - 1) * filterParams.Limit)
         .Take(filterParams.Limit)
         .ToListAsync();
@@ -314,26 +214,16 @@ public class ArticleGetController : ControllerBase
         }
 
 
-
         // Map articles to DTOs
-        var articleDetailsDisplayDtos = articles.Select(article => new ArticleDetailsDisplayDto
+        var articleDetailsDisplayDtos = new List<ArticleDetailsDisplayDto>();
+
+        foreach (var article in articles)
         {
-            Id = article.Id,
-            TitreFR = article.TitreFR,
-            DescriptionFR = article.ContenuFR,
-            TitreEN = article.TitreEN,
-            DescriptionEN = article.ContenuEN,
-            TitreNL = article.TitreNL,
-            DescriptionNL = article.ContenuNL,
-            Categorie = article?.Categorie?.Nom,
-            DatePublication = article.DatePublication.ToString("dd-MM-yyyy"), // format the date
-            Module = _apschoolDbContext.Modules.FirstOrDefault(m => m.id == article.ModuleId)?.nom,
-            AuteurId = article.AuteurId,
-            Version = article.Version,
-            IsBrouillon = article.IsBrouillon,
-            IsArchive = article.IsArchive,
-            IsNew = (DateTime.Today - article.DatePublication.Date).TotalDays <= 15 // Check if article is new
-        }).ToList();
+            var articleDetailsDisplayDto = _mapper.Map<ArticleDetailsDisplayDto>(article);
+            articleDetailsDisplayDto.IsNew = (DateTime.Today - article.DatePublication.Date).TotalDays <= 15;
+            articleDetailsDisplayDtos.Add(articleDetailsDisplayDto);
+        }
+
 
         // Get the total count of messages for pagination
         int totalCount = _patchNoteDbContext.Articles.Count();
@@ -352,7 +242,6 @@ public class ArticleGetController : ControllerBase
             nextPage = nextPage,
             previousPage = previousPage,
             data = articleDetailsDisplayDtos,
-            modules = arrayModules
         });
     }
 
@@ -363,6 +252,7 @@ public class ArticleGetController : ControllerBase
     {
         var article = _patchNoteDbContext.Articles
                     .Include(a => a.Categorie)
+                    .Include(a => a.Module)
                     .FirstOrDefault(a => a.Id == id);
 
         if (article == null)
@@ -370,32 +260,11 @@ public class ArticleGetController : ControllerBase
             return NotFound();
         }
 
-        var module = _apschoolDbContext.Modules
-            .FirstOrDefault(m => m.id == article.ModuleId);
-
-        var utilisateur = _apschoolDbContext.Utilisateurs
+        var utilisateur = _patchNoteDbContext.Utilisateurs
             .FirstOrDefault(u => u.Id == article.AuteurId);
 
-        var articleAdminDetailsDisplayDto = new ArticleAdminDetailsDisplayDto
-        {
-            Id = article.Id,
-            TitreFR = article.TitreFR,
-            ContenuFR = article.ContenuFR,
-            TitreEN = article.TitreEN,
-            ContenuEN = article.ContenuEN,
-            TitreNL = article.TitreNL,
-            ContenuNL = article.ContenuNL,
-            Version = article.Version,
-            Categorie = article.Categorie?.Nom,
-            DatePublication = article.DatePublication.ToString("dd-MM-yyyy"),
-            DateModification = article.DateModification.ToString("dd-MM-yyyy"),
-            Module = module?.nom,
-            CategorieId = article.Categorie.Id,
-            ModuleId = module.id,
-            Auteur = utilisateur?.Nom + " " + utilisateur?.Prenom,
-            IsBrouillon = article.IsBrouillon,
-            IsArchive = article.IsArchive
-        };
+        var articleAdminDetailsDisplayDto = _mapper.Map<ArticleAdminDetailsDisplayDto>(article);
+        articleAdminDetailsDisplayDto.Auteur = utilisateur?.Nom + " " + utilisateur?.Prenom;
 
         return Ok(articleAdminDetailsDisplayDto);
     }
@@ -407,6 +276,7 @@ public class ArticleGetController : ControllerBase
     {
         var articles = _patchNoteDbContext.Articles
                     .Include(a => a.Categorie)
+                    .Include(a => a.Module)
                     .ToList();
 
         if (articles == null)
@@ -418,8 +288,6 @@ public class ArticleGetController : ControllerBase
 
         foreach (var article in articles)
         {
-            var module = _apschoolDbContext.Modules
-                        .FirstOrDefault(m => m.id == article.ModuleId);
 
             var articleNewsletterIdDisplayDto = new ArticleNewsletterIdDisplayDto
             {

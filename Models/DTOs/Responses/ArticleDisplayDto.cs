@@ -20,15 +20,14 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public int ModuleId { get; set; }
         public int IsBrouillon { get; set; }
         public int IsArchive { get; set; }
-
         public int? NewsletterId { get; set; }
 
-        
+
         private DateTime _datePublication;
-        public string DatePublication 
-        { 
-            get => _datePublication.ToString("yyyy-MM-dd"); 
-            set => _datePublication = DateTime.Parse(value); 
+        public string DatePublication
+        {
+            get => _datePublication.ToString("yyyy-MM-dd");
+            set => _datePublication = DateTime.Parse(value);
         }
     }
 }

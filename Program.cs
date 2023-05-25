@@ -12,9 +12,9 @@ using PatchNote.Api;
 using PatchNote.Api.Application.Authorization;
 using PatchNote.Api.Application.Services;
 using PatchNote.Api.Application.Services.NewsletterEmailService;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
 using PatchNote.Api.Models.DTOs.Requests;
+using PatchNote.Mapper;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,7 +39,7 @@ var builder = WebApplication.CreateBuilder(args);
     );
 
 
-//Setting up Hangfire for scheduling sending newsletter
+    //Setting up Hangfire for scheduling sending newsletter
     builder.Services.AddHangfire(configuration =>
         configuration
             .UseStorage(new MySqlStorage(builder.Configuration.GetConnectionString("HangfireConnection"), new MySqlStorageOptions
@@ -55,16 +55,15 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddHangfireServer();
 
- // add authentication services
+    // add authentication services
     builder.Services
         .AddScoped<IJwtUtils, JwtUtils>()
         .AddScoped<IUserService, UserService>();
 
     builder.Services.AddTransient<INewsletterEmailService, NewsletterEmailService>();
 
-//  Connextion to Databases
+    //  Connextion to Databases
     var connectionString = builder.Configuration.GetConnectionString("PatchNoteDbConnectionString");
-    var connectionStringApSchool = builder.Configuration.GetConnectionString("ApSchoolConnectionString");
     var HangfireConnection = builder.Configuration.GetConnectionString("HangfireConnection");
     var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
 
@@ -75,12 +74,6 @@ var builder = WebApplication.CreateBuilder(args);
         .EnableSensitiveDataLogging()
         .EnableDetailedErrors());
 
-    builder.Services.AddDbContext<ApschoolDbContext>(options =>
-        options
-        .UseMySql(connectionStringApSchool, serverVersion)
-        .LogTo(Console.WriteLine, LogLevel.Information)
-        .EnableSensitiveDataLogging()
-        .EnableDetailedErrors());
 
     builder.Services.AddDbContext<HangfireDbContext>(options =>
         options
@@ -88,6 +81,12 @@ var builder = WebApplication.CreateBuilder(args);
         .LogTo(Console.WriteLine, LogLevel.Information)
         .EnableSensitiveDataLogging()
         .EnableDetailedErrors());
+
+    // Register AutoMapper and mapping profiles
+    builder.Services
+    .AddAutoMapper(typeof(ArticleMappingProfile))
+    .AddAutoMapper(typeof(MessageRecommandationMappingProfile))
+    .AddAutoMapper(typeof(NewsletterMappingProfile));
 }
 
 
@@ -97,8 +96,8 @@ var app = builder.Build();
 {
     if (app.Environment.IsDevelopment())
     {
-            app.UseSwagger();
-            app.UseSwaggerUI();
+        app.UseSwagger();
+        app.UseSwaggerUI();
         //     app.UseSwaggerUI(options =>
         // {
         //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
@@ -111,12 +110,12 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
-    
+
     app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173"));
     app.MapControllers();
     app.UseHangfireDashboard();
     app.MapHangfireDashboard();
-    
+
 
     app.Run();
 }

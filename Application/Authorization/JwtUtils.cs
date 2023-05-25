@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using PatchNote.Api.Data.ApschoolDatas.Entities;
+using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 using PatchNote.Api.Helpers;
 
 namespace PatchNote.Api.Application.Authorization
@@ -18,7 +18,7 @@ namespace PatchNote.Api.Application.Authorization
             _appSettings = appSettings.Value;
         }
 
-        public string GenerateToken(Identifiants identifiant)
+        public string GenerateToken(Identifiant identifiant)
         {
             // generate token that is valid for 1 days
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -37,7 +37,7 @@ namespace PatchNote.Api.Application.Authorization
 
         public int? ValidateToken(string token)
         {
-            if (token == null) 
+            if (token == null)
                 return null;
 
             var tokenHandler = new JwtSecurityTokenHandler();

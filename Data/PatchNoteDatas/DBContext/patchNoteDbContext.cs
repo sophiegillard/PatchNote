@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Common;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.MessageRecommandation;
@@ -21,10 +20,11 @@ public partial class patchNoteDbContext : DbContext
     public virtual DbSet<Article> Articles { get; set; }
     public virtual DbSet<Categorie> Categories { get; set; }
     public virtual DbSet<Module> Modules { get; set; }
+    public virtual DbSet<Identifiant> Identifiants { get; set; }
+    public virtual DbSet<Utilisateur> Utilisateurs { get; set; }
     public virtual DbSet<MessageRecommandation> MessageRecommandations { get; set; }
     public virtual DbSet<Newsletter> Newsletters { get; set; }
     public virtual DbSet<StatutMessageRecommandation> StatutMessageRecommandations { get; set; }
-    public virtual DbSet<UtilisateurApschool> UtilisateursApschool { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -45,7 +45,7 @@ public partial class patchNoteDbContext : DbContext
 
             entity.HasIndex(e => e.NewsletterId, "fk_articles_newsletter_id");
 
-            entity.HasIndex(e => e.NewsletterId, "fk_articles_module_id");
+            entity.HasIndex(e => e.ModuleId, "fk_articles_module_id");
 
             entity.Property(e => e.ContenuFR)
                 .IsRequired()
@@ -79,12 +79,6 @@ public partial class patchNoteDbContext : DbContext
                 .WithMany(p => p.Articles)
                 .HasForeignKey(d => d.NewsletterId)
                 .HasConstraintName("fk_articles_newsletter_id");
-
-            // entity.HasOne(d => d.UtilisateurApschool)
-            //     .WithMany(p => p.Articles)
-            //     .HasForeignKey(d => d.UtilisateurId)
-            //     .OnDelete(DeleteBehavior.ClientSetNull)
-            //     .HasConstraintName("fk_articles_auteur_id");
         });
 
         modelBuilder.Entity<Categorie>(entity =>
@@ -103,6 +97,16 @@ public partial class patchNoteDbContext : DbContext
            entity.Property(e => e.Nom)
                .IsRequired()
                .HasMaxLength(255);
+       });
+
+        modelBuilder.Entity<Identifiant>(entity =>
+       {
+           entity.ToTable("identifiant");
+       });
+
+        modelBuilder.Entity<Utilisateur>(entity =>
+       {
+           entity.ToTable("utilisateur");
        });
 
         modelBuilder.Entity<MessageRecommandation>(entity =>
@@ -168,11 +172,6 @@ public partial class patchNoteDbContext : DbContext
         //     entity.Property(e => e.IsSubscribed).HasColumnType("tinyint");
         // });
 
-        modelBuilder.Entity<UtilisateurApschool>(entity =>
-       {
-           entity.ToTable("utilisateurApschool");
-
-       });
 
         OnModelCreatingPartial(modelBuilder);
     }

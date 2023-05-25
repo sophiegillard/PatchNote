@@ -5,7 +5,6 @@ using MimeKit;
 using PatchNote.Api.Models.DTOs.Requests;
 using MimeKit.Text;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 
 namespace PatchNote.Api.Application.Services.NewsletterEmailService
 {
@@ -13,13 +12,11 @@ namespace PatchNote.Api.Application.Services.NewsletterEmailService
     {
         private readonly IConfiguration _config;
         private readonly patchNoteDbContext _patchNoteDbContext;
-        private readonly ApschoolDbContext _apschoolDbContext;
 
-        public NewsletterEmailService(IConfiguration config, patchNoteDbContext patchNoteDbContext, ApschoolDbContext apschoolDbContext)
+        public NewsletterEmailService(IConfiguration config, patchNoteDbContext patchNoteDbContext)
         {
             _config = config;
             _patchNoteDbContext = patchNoteDbContext;
-            _apschoolDbContext = apschoolDbContext;
         }
 
 

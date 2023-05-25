@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
 
 namespace PatchNote.Api.Controllers.PatchNoteControllers
@@ -13,31 +12,21 @@ namespace PatchNote.Api.Controllers.PatchNoteControllers
     public class ArticleArchiveController : ControllerBase
     {
         private readonly patchNoteDbContext _patchNoteDbContext;
-        private readonly ApschoolDbContext _apschoolDbContext;
-        public ArticleArchiveController(patchNoteDbContext patchNoteDbContext, ApschoolDbContext apschoolDbContext)
+        public ArticleArchiveController(patchNoteDbContext patchNoteDbContext)
         {
             _patchNoteDbContext = patchNoteDbContext;
-
-            _apschoolDbContext = apschoolDbContext;
         }
 
         [HttpPut("/article/archive/{id}")]
         public IActionResult ArchiveArticle(int id)
         {
-            var article = _patchNoteDbContext.Articles.FirstOrDefault(a => a.Id == id);
+            var article = _patchNoteDbContext.Articles.Find(id);
             if (article == null)
             {
                 return NotFound();
             }
 
-            if(article.IsArchive == 1)
-            {
-                article.IsArchive = 0;
-            }
-            else
-            {
-                article.IsArchive = 1;
-            }
+            article.IsArchive = article.IsArchive == 1 ? article.IsArchive = 0 : article.IsArchive = 1;
 
             _patchNoteDbContext.SaveChanges();
 

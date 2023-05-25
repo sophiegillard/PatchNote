@@ -11,7 +11,7 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public int Id { get; set; }
         public string Ecole { get; set; } = string.Empty;
         public string Auteur { get; set; } = string.Empty;
-        public string Sujet { get; set; } = string.Empty;
+        public string? Sujet { get; set; } = string.Empty;
         public string Message { get; set; } = string.Empty;
         public byte IsLu { get; set; }
         public int StatutMessageRecommandationId { get; set; }
@@ -20,10 +20,10 @@ namespace PatchNote.Api.Models.DTOs.Responses
 
 
         private DateTime _dateCreation;
-        public string DateCreation 
-        { 
-            get => _dateCreation.ToString("dd-MM-yyyy"); 
-            set => _dateCreation = DateTime.Parse(value); 
+        public string DateCreation
+        {
+            get => _dateCreation.ToString("dd-MM-yyyy");
+            set => _dateCreation = DateTime.Parse(value);
         }
     }
 }

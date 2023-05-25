@@ -1,12 +1,12 @@
 
 
-using PatchNote.Api.Data.ApschoolDatas.Entities;
+using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 
 namespace PatchNote.Api.Application.Authorization
 {
-     public interface IJwtUtils
+    public interface IJwtUtils
     {
-        public string GenerateToken(Identifiants identifiant);
+        public string GenerateToken(Identifiant identifiant);
         public int? ValidateToken(string token);
     }
 }

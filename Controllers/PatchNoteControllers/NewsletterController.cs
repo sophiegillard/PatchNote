@@ -3,12 +3,14 @@ using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PatchNote.Api.Application.Services.NewsletterEmailService;
-using PatchNote.Api.Data.ApschoolDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 using PatchNote.Api.Helpers;
 using PatchNote.Api.Models.DTOs.Requests;
 using PatchNote.Api.Models.DTOs.Responses;
+using System.Linq.Expressions;
+using AutoMapper;
+using PatchNote.Mapper;
 
 namespace PatchNote.Api.Controllers.PatchNoteControllers;
 
@@ -17,29 +19,28 @@ namespace PatchNote.Api.Controllers.PatchNoteControllers;
 public class NewsletterController : Controller
 {
     private readonly patchNoteDbContext _patchNoteDbContext;
-    private readonly ApschoolDbContext _apschoolDbContext;
     private readonly HangfireDbContext _hangfireDbContext;
     private readonly INewsletterEmailService _newsletterEmailService;
     private readonly IBackgroundJobClient _backgroundJobClient;
 
-
+    private readonly IMapper _mapper;
 
     public NewsletterController(
                         patchNoteDbContext patchNoteDbContext,
-                        ApschoolDbContext apschoolDbContext,
                         HangfireDbContext hangfireDbContext,
                         INewsletterEmailService newsletterEmailService,
-                        IBackgroundJobClient backgroundJobClient)
+                        IBackgroundJobClient backgroundJobClient,
+                        IMapper mapper)
     {
         _patchNoteDbContext = patchNoteDbContext;
-
-        _apschoolDbContext = apschoolDbContext;
 
         _hangfireDbContext = hangfireDbContext;
 
         _newsletterEmailService = newsletterEmailService;
 
         _backgroundJobClient = backgroundJobClient;
+
+        _mapper = mapper;
     }
 
     // public void switchPublish(Newsletter newsletter, patchNoteDbContext _patchNoteDbContext )
@@ -54,70 +55,33 @@ public class NewsletterController : Controller
 
         IQueryable<Newsletter> newsletterQuery = _patchNoteDbContext.Newsletters
                                             .OrderByDescending(n => n.DateCreation);
-        //Apply filters
-        switch (filterParams.NewsletterState)
-        {
-            case "all":
-                newsletterQuery = newsletterQuery.OrderByDescending(n => n.DatePublication);
-                break;
-            case "scheduled":
-                newsletterQuery = newsletterQuery.Where(n => n.IsBrouillon == 0 & n.DatePublication.Date > DateTime.Today);
-                break;
-            case "published":
-                newsletterQuery = newsletterQuery.Where(n => n.IsBrouillon == 0 && n.DatePublication.Date <= DateTime.Today);
-                break;
-            case "draft":
-                newsletterQuery = newsletterQuery.Where(n => n.IsBrouillon == 1);
-                break;
-            default:
-                break;
-        }
 
-        // apply sorting
-        if (filterParams.SortColumn == "PublicationDate")
+        // -- apply filters by article type--
+        newsletterQuery = filterParams.NewsletterState switch
         {
-            if (filterParams.SortDirection)
-            {
-                newsletterQuery = newsletterQuery.OrderBy(n => n.DatePublication);
-            }
-            else
-            {
-                newsletterQuery = newsletterQuery.OrderByDescending(n => n.DatePublication);
-            }
-        }
-        if (filterParams.SortColumn == "ModificationDate")
+            "all" => newsletterQuery.OrderByDescending(n => n.DatePublication),
+            "scheduled" => newsletterQuery.Where(n => n.IsBrouillon == 0 & n.DatePublication.Date > DateTime.Today),
+            "published" => newsletterQuery.Where(n => n.IsBrouillon == 0 && n.DatePublication.Date <= DateTime.Today),
+            "draft" => newsletterQuery.Where(n => n.IsBrouillon == 1),
+            _ => newsletterQuery
+        };
+        // -- END --
+
+        // -- apply sorting --
+        var sortingOptions = new Dictionary<string, Expression<Func<Newsletter, object>>>
         {
-            if (filterParams.SortDirection)
-            {
-                newsletterQuery = newsletterQuery.OrderBy(n => n.DateModification);
-            }
-            else
-            {
-                newsletterQuery = newsletterQuery.OrderByDescending(n => n.DateModification);
-            }
-        }
-        else if (filterParams.SortColumn == "Id")
+            { "PublicationDate", n => n.DatePublication },
+            { "ModificationDate", n => n.DateModification },
+            { "Id", n => n.Id },
+            { "Titre", n => n.TitreFR }
+        };
+
+        if (sortingOptions.ContainsKey(filterParams.SortColumn))
         {
-            if (filterParams.SortDirection)
-            {
-                newsletterQuery = newsletterQuery.OrderBy(n => n.Id);
-            }
-            else
-            {
-                newsletterQuery = newsletterQuery.OrderByDescending(n => n.Id);
-            }
+            var sortExpression = sortingOptions[filterParams.SortColumn];
+            newsletterQuery = filterParams.SortDirection ? newsletterQuery.OrderBy(sortExpression) : newsletterQuery.OrderByDescending(sortExpression);
         }
-        else if (filterParams.SortColumn == "Titre")
-        {
-            if (filterParams.SortDirection)
-            {
-                newsletterQuery = newsletterQuery.OrderBy(n => n.TitreFR);
-            }
-            else
-            {
-                newsletterQuery = newsletterQuery.OrderByDescending(n => n.TitreFR);
-            }
-        }
+        // -- End Sorting -- 
 
         // Get total count of articles matching the filters
         var totalCount = newsletterQuery.Count();
@@ -160,30 +124,8 @@ public class NewsletterController : Controller
                             && a.DatePublication <= newsletter.DatePublication)
                 .ToList();
 
-            var newsletterDto = new NewsletterDisplayDto
-            {
-                Id = newsletter.Id,
-                TitreFR = newsletter.TitreFR,
-                ResumeFR = newsletter.ResumeFR,
-                ContenuFR = newsletter.ContenuFR,
-                TitreEN = newsletter.TitreEN,
-                ResumeEN = newsletter.ResumeEN,
-                ContenuEN = newsletter.ContenuEN,
-                TitreNL = newsletter.TitreNL,
-                ResumeNL = newsletter.ResumeNL,
-                ContenuNL = newsletter.ContenuNL,
-                IsPublished = newsletter.IsPublished,
-                DatePublication = newsletter.DatePublication.ToString("dd-MM-yyyy"),
-                DateCreation = newsletter.DateCreation.ToString("dd-MM-yyyy"),
-                DateModification = newsletter.DateModification.ToString("dd-MM-yyyy"),
-                Articles = articles.Select(a => new NewsletterArticlesListDto
-                {
-                    Id = a.Id,
-                    TitreFR = a.TitreFR,
-                    DatePublication = a.DatePublication.ToString("dd-MM-yyyy"),
-                    NewsletterId = a.NewsletterId
-                }).ToList()
-            };
+            var newsletterDto = _mapper.Map<NewsletterDisplayDto>(newsletter);
+            newsletterDto.Articles = _mapper.Map<List<NewsletterArticlesListDto>>(articles);
 
             newsletterDtos.Add(newsletterDto);
         }
@@ -229,6 +171,7 @@ public class NewsletterController : Controller
 
         var articles = _patchNoteDbContext.Articles
         .Include(a => a.Categorie)
+        .Include(a => a.Module)
             .Where(a => a.NewsletterId == newsletter.Id
                         && a.IsBrouillon == 0
                         && a.IsArchive == 0
@@ -236,18 +179,8 @@ public class NewsletterController : Controller
             .ToList();
 
 
-        var articlesWithNewsletter = articles.Select(article => new NewsletterArticlesListDto
-        {
-            Id = article.Id,
-            TitreFR = article.TitreFR,
-            TitreEN = article.TitreEN,
-            TitreNL = article.TitreNL,
-            DatePublication = article.DatePublication.ToString("dd-MM-yyyy"),
-            NewsletterId = article.NewsletterId,
-            Categorie = article.Categorie?.Nom,
-            Module = _apschoolDbContext.Modules.FirstOrDefault(m => m.id == article.ModuleId)?.nom,
 
-        }).ToList();
+        var articlesWithNewsletter = _mapper.Map<List<NewsletterArticlesListDto>>(articles);
 
 
         var latestArticles = _patchNoteDbContext.Articles
@@ -286,30 +219,16 @@ public class NewsletterController : Controller
         //get the total number of articles in the newsletter
         var articlesCount = articlesWithNewsletter.Count;
 
+        var newsletterDisplayDto = _mapper.Map<NewsletterDisplayDto>(newsletter);
+        newsletterDisplayDto.Articles = articlesWithNewsletter;
+
+
         var response = new
         {
             ArticlesCount = articlesCount,
             LatestArticles = latestArticles,
             OldArticles = oldArticles,
-            Newsletter = new NewsletterDisplayDto
-            {
-                Id = newsletter.Id,
-                TitreFR = newsletter.TitreFR,
-                ResumeFR = newsletter.ResumeFR,
-                ContenuFR = newsletter.ContenuFR,
-                TitreEN = newsletter.TitreEN,
-                ResumeEN = newsletter.ResumeEN,
-                ContenuEN = newsletter.ContenuEN,
-                TitreNL = newsletter.TitreNL,
-                ResumeNL = newsletter.ResumeNL,
-                ContenuNL = newsletter.ContenuNL,
-                IsPublished = newsletter.IsPublished,
-                IsBrouillon = newsletter.IsBrouillon,
-                DatePublication = newsletter.DatePublication.ToString("dd-MM-yyyy"),
-                DateCreation = newsletter.DateCreation.ToString("dd-MM-yyyy"),
-                DateModification = newsletter.DateModification.ToString("dd-MM-yyyy"),
-                Articles = articlesWithNewsletter,
-            }
+            Newsletter = newsletterDisplayDto,
         };
 
         return Ok(response);
@@ -335,11 +254,9 @@ public class NewsletterController : Controller
     {
         //Get this newsletter and all users to send email to
         var newsletter = _patchNoteDbContext.Newsletters.FirstOrDefault(a => a.Id == id);
-        var users = await _apschoolDbContext.Utilisateurs.Where(x =>
-            x.TypeUtilisateur > 6 && x.TypeUtilisateur < 10
-            && x.Newsletter == 1
-            ).ToListAsync();
-
+        var users = await _patchNoteDbContext.Utilisateurs
+                                .Where(x => x.Newsletter == 1)
+                                .ToListAsync();
 
         if (newsletter == null)
         {
@@ -347,18 +264,8 @@ public class NewsletterController : Controller
         }
 
         //Updating the newsletter content
-        newsletter.TitreFR = newsletterUpdateDto.TitreFR;
-        newsletter.ResumeFR = newsletterUpdateDto.ResumeFR;
-        newsletter.ContenuFR = newsletterUpdateDto.ContenuFR;
-        newsletter.TitreEN = newsletterUpdateDto.TitreEN;
-        newsletter.ResumeEN = newsletterUpdateDto.ResumeEN;
-        newsletter.ContenuEN = newsletterUpdateDto.ContenuEN;
-        newsletter.TitreNL = newsletterUpdateDto.TitreNL;
-        newsletter.ResumeNL = newsletterUpdateDto.ResumeNL;
-        newsletter.ContenuNL = newsletterUpdateDto.ContenuNL;
-        newsletter.DatePublication = newsletterUpdateDto.DatePublication;
+        _mapper.Map(newsletterUpdateDto, newsletter);
         newsletter.DateModification = DateTime.UtcNow;
-        newsletter.IsBrouillon = newsletterUpdateDto.IsBrouillon;
 
         _patchNoteDbContext.Newsletters.Update(newsletter);
         await _patchNoteDbContext.SaveChangesAsync();
@@ -369,128 +276,107 @@ public class NewsletterController : Controller
             //Get the user language to send the right newsletter
             var userLanguage = user.Langue == null ? "FR" : user.Langue?.ToUpper();
 
-            var contact = _apschoolDbContext.Contacts
-                    .FirstOrDefault(x => x.utilisateur_id == user.Id);
-
-
-            // USE this condition and put the code inside. Next condition is only for testing
-            //    if(contact?.utilisateur_id != null && contact?.email != null) {
-            //         if(contact.email != "") {
-            //REPLACE THE CONSOLE BY THE CODE BELOW
-            //             Console.WriteLine("User found " + user.Id + " "+ user.Nom + " "+ contact?.utilisateur_id + " " + contact?.email + " " + userLanguage);
-            //         } 
-            //     }
-
-
             // If contact exists and have an id AND if contact has an email address AND if user Id  == 163569 -- this is my id "SOPHIE GILLARD"
-            if (contact?.utilisateur_id != null && contact?.email != null && contact.utilisateur_id == 163569)
+            if (user.Id != null && user.Email != null)
             {
-                if (contact.email != "")
+
+                //Send email only if scheduled date is today and if it has not been sent yet
+                if (newsletter.IsPublished == 0 && newsletter.IsBrouillon == 0)
                 {
-                    Console.WriteLine("User found " + user.Id + " " + user.Nom + " " + contact?.utilisateur_id + " " + contact?.email + " " + userLanguage);
+                    var newsArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, newsletter.Id, 1);
+                    var updatedArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, newsletter.Id, 2);
+                    var fixedArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, newsletter.Id, 3);
+                    var otherArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, newsletter.Id, 4);
+
+                    var placeholders = new List<KeyValuePair<string, string>>();
+
+                    // Read the HTML content of the article titles from a file
+                    string articleTemplate = System.IO.File.ReadAllText("../PatchNote.Api/EmailTemplate/articleTemplate.html");
+                    string newArticleTitles = "";
+                    string updatedArticleTitles = "";
+                    string fixedArticleTitles = "";
+                    string otherArticleTitles = "";
+
+                    //get template for if section is empty
+                    string noArticleTemplate = System.IO.File.ReadAllText("../PatchNote.Api/EmailTemplate/noArticleTemplate.html");
 
 
-                    //Send email only if scheduled date is today and if it has not been sent yet
-                    if (newsletter.IsPublished == 0 && newsletter.IsBrouillon == 0)
+                    // Get articles of each category (new feature, updates, bug fix and other). This function calls the content of the user's language.
+                    foreach (var article in newsArticles)
                     {
-                        var newsArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, _apschoolDbContext, newsletter.Id, 1);
-                        var updatedArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, _apschoolDbContext, newsletter.Id, 2);
-                        var fixedArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, _apschoolDbContext, newsletter.Id, 3);
-                        var otherArticles = await ArticleHelper.GetArticlesByCategory(_patchNoteDbContext, _apschoolDbContext, newsletter.Id, 4);
-
-                        var placeholders = new List<KeyValuePair<string, string>>();
-
-                        // Read the HTML content of the article titles from a file
-                        string articleTemplate = System.IO.File.ReadAllText("../PatchNote.Api/EmailTemplate/articleTemplate.html");
-                        string newArticleTitles = "";
-                        string updatedArticleTitles = "";
-                        string fixedArticleTitles = "";
-                        string otherArticleTitles = "";
-
-                        //get template for if section is empty
-                        string noArticleTemplate = System.IO.File.ReadAllText("../PatchNote.Api/EmailTemplate/noArticleTemplate.html");
-
-
-                        // Get articles of each category (new feature, updates, bug fix and other). This function calls the content of the user's language.
-                        foreach (var article in newsArticles)
-                        {
-                            newArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
-                        }
-                        if (newArticleTitles.Length == 0)
-                        {
-                            newArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "Nothing new for the moment");
-
-                        }
-
-                        foreach (var article in updatedArticles)
-                        {
-                            updatedArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
-                        }
-                        if (updatedArticleTitles.Length == 0)
-                        {
-                            updatedArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "No updates");
-
-                        }
-
-                        foreach (var article in fixedArticles)
-                        {
-                            fixedArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
-                        }
-                        if (fixedArticleTitles.Length == 0)
-                        {
-                            fixedArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "You're working on correction");
-                        }
-
-                        foreach (var article in otherArticles)
-                        {
-                            otherArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
-                        }
-                        if (otherArticleTitles.Length == 0)
-                        {
-                            otherArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "No other articles available.");
-                        }
-
-
-                        var newsletterTitle = ArticleHelper.GetTranslatedNewslettersTitle(userLanguage, newsletter);
-
-                        Console.WriteLine(otherArticleTitles);
-                        Console.WriteLine(otherArticleTitles.Length);
-
-                        placeholders.Add(new KeyValuePair<string, string>("{{newArticles}}", newArticleTitles));
-                        placeholders.Add(new KeyValuePair<string, string>("{{updatedArticles}}", updatedArticleTitles));
-                        placeholders.Add(new KeyValuePair<string, string>("{{fixedArticles}}", fixedArticleTitles));
-                        placeholders.Add(new KeyValuePair<string, string>("{{otherArticles}}", otherArticleTitles));
-                        placeholders.Add(new KeyValuePair<string, string>("{{NewsletterTitle}}", newsletterTitle));
-                        placeholders.Add(new KeyValuePair<string, string>("{{userId}}", user.Id.ToString()));
-
-
-
-                        var email = new EmailDto
-                        {
-                            // To = contact.email,
-                            To = "earnest.kessler14@ethereal.email",
-                            Subject = newsletterTitle,
-                            PlaceHolders = placeholders
-                        };
-
-
-
-
-                        if (newsletter.JobId != null)
-                        {
-                            BackgroundJob.Delete(newsletter.JobId);
-                        }
-
-                        // ID instead of email 
-                        var jobId = BackgroundJob.Schedule(() => _newsletterEmailService.SendEmail(email, userLanguage), newsletter.DatePublication);
-                        newsletter.JobId = jobId;
-                        await _patchNoteDbContext.SaveChangesAsync();
-
-                        // BackgroundJob.ContinueJobWith(jobId, () =>
-                        // switchPublish(newsletter, _patchNoteDbContext));
-
+                        newArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
+                    }
+                    if (newArticleTitles.Length == 0)
+                    {
+                        newArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "Nothing new for the moment");
 
                     }
+
+                    foreach (var article in updatedArticles)
+                    {
+                        updatedArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
+                    }
+                    if (updatedArticleTitles.Length == 0)
+                    {
+                        updatedArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "No updates");
+
+                    }
+
+                    foreach (var article in fixedArticles)
+                    {
+                        fixedArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
+                    }
+                    if (fixedArticleTitles.Length == 0)
+                    {
+                        fixedArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "You're working on correction");
+                    }
+
+                    foreach (var article in otherArticles)
+                    {
+                        otherArticleTitles += ArticleHelper.GetNewslettersArticlesWithParams(userLanguage, article, articleTemplate);
+                    }
+                    if (otherArticleTitles.Length == 0)
+                    {
+                        otherArticleTitles = noArticleTemplate.Replace("{{noResultText}}", "No other articles available.");
+                    }
+
+
+                    var newsletterTitle = ArticleHelper.GetTranslatedNewslettersTitle(userLanguage, newsletter);
+
+                    Console.WriteLine(otherArticleTitles);
+                    Console.WriteLine(otherArticleTitles.Length);
+
+                    placeholders.Add(new KeyValuePair<string, string>("{{newArticles}}", newArticleTitles));
+                    placeholders.Add(new KeyValuePair<string, string>("{{updatedArticles}}", updatedArticleTitles));
+                    placeholders.Add(new KeyValuePair<string, string>("{{fixedArticles}}", fixedArticleTitles));
+                    placeholders.Add(new KeyValuePair<string, string>("{{otherArticles}}", otherArticleTitles));
+                    placeholders.Add(new KeyValuePair<string, string>("{{NewsletterTitle}}", newsletterTitle));
+                    placeholders.Add(new KeyValuePair<string, string>("{{userId}}", user.Id.ToString()));
+
+
+
+                    var email = new EmailDto
+                    {
+                        To = user.Email,
+                        Subject = newsletterTitle,
+                        PlaceHolders = placeholders
+                    };
+
+
+
+
+                    if (newsletter.JobId != null)
+                    {
+                        BackgroundJob.Delete(newsletter.JobId);
+                    }
+
+                    // ID instead of email 
+                    var jobId = BackgroundJob.Schedule(() => _newsletterEmailService.SendEmail(email, userLanguage), newsletter.DatePublication);
+                    newsletter.JobId = jobId;
+                    await _patchNoteDbContext.SaveChangesAsync();
+
+                    // BackgroundJob.ContinueJobWith(jobId, () =>
+                    // switchPublish(newsletter, _patchNoteDbContext));
                 }
             }
         }
