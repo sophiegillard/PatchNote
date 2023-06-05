@@ -124,7 +124,7 @@ export const Home = () => {
                             data.pageParams.length * 10 < data.pages[0].articles.totalCount &&
                             articles.length !== 0 &&
                             articles.length >= 10 && (
-                                <Stack p={3} alignSelf="center" width="30%">
+                                <Stack p={3} alignSelf="center">
                                     <PrimaryActionButton
                                         text={t("main.general.load_more")}
                                         onClick={() => {

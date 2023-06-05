@@ -86,8 +86,8 @@ export const FilterDrawerPatchNoteAdmin = ({
                 <MobileCircleButton
                     icon={<FiFilter />}
                     onClick={() => handleClick()}
-                    bottomPx={"80px"}
-                    rightPx={"25px"}
+                    bottomPx={"20px"}
+                    rightPx={"20px"}
                     bgGradient={"linear(to-r, secondaryPurple.600, secondaryPurple.400)"}
                 />
             </Show>

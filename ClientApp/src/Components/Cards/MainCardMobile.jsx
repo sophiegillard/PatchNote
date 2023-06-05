@@ -28,8 +28,8 @@ export const MainCardMobile = ({ inputValue, articles, isArticleLoading }) => {
                             {({ isExpanded }) => (
                                 <>
                                     <h2 style={{ paddingBottom: 0 }}>
-                                        <AccordionButton borderRadius="xl" padding={0} bgColor="white" shadow="lg">
-                                            <Box as="span" flex="1" textAlign="left" height="165px">
+                                        <AccordionButton borderRadius="xl" padding={0} shadow="lg" bgColor={"#f0f0f0"}>
+                                            <Box as="span" flex="1" textAlign="left" height="140px">
                                                 <HStack height="100%">
                                                     <Flex
                                                         flexDirection="column"
@@ -51,16 +51,15 @@ export const MainCardMobile = ({ inputValue, articles, isArticleLoading }) => {
                                                         )}
                                                     </Flex>
 
-                                                    <HStack flexGrow={1} height="100%" justifyContent="space-between">
-                                                        <VStack alignItems="flex-start" px={1}>
-                                                            <VStack alignItems="start" pb={1}>
-                                                                <HStack alignItems="baseline">
-                                                                    <Text textStyle="h4Mobile" pb="0">
-                                                                        {article[`titre${lng}`]}
-                                                                    </Text>
-                                                                </HStack>
-                                                                <Text fontSize="xs">{article.datePublication} </Text>
-                                                            </VStack>
+                                                    <VStack height="80%" width={"90%"} justifyContent={"space-between"} pt="4" pl="2">
+                                                        <VStack alignItems="start" pb={1} width="full">
+                                                            <Text textStyle="h4Mobile" pb="0">
+                                                                {article[`titre${lng}`]}
+                                                            </Text>
+
+                                                            <Text fontSize="xs">{article.datePublication} </Text>
+                                                        </VStack>
+                                                        <HStack width="full">
                                                             <Text
                                                                 fontSize="0.8rem"
                                                                 p={1}
@@ -81,8 +80,8 @@ export const MainCardMobile = ({ inputValue, articles, isArticleLoading }) => {
                                                             >
                                                                 {t(`filters.filters_category.list.${article.categorie}`)}
                                                             </Text>
-                                                        </VStack>
-                                                    </HStack>
+                                                        </HStack>
+                                                    </VStack>
 
                                                     <Flex
                                                         flexDirection="column"
@@ -91,8 +90,10 @@ export const MainCardMobile = ({ inputValue, articles, isArticleLoading }) => {
                                                         height="100%"
                                                         gap={6}
                                                     >
-                                                        {article.isNew && (
+                                                        {article.isNew ? (
                                                             <Box
+                                                                position="absolute"
+                                                                right={{ base: "3", md: "14", lg: "0", xl: "0" }}
                                                                 bgGradient="linear(to-b, gradientColors.redStart, gradientColors.redEnd)"
                                                                 style={{
                                                                     clipPath: "polygon(20% 0, 80% 0, 80% 81%, 50% 100%, 20% 81%)",
@@ -111,17 +112,7 @@ export const MainCardMobile = ({ inputValue, articles, isArticleLoading }) => {
                                                                     NEW
                                                                 </Text>
                                                             </Box>
-                                                        )}
-
-                                                        {isExpanded ? (
-                                                            <Box px={2} justifySelf="flex-end">
-                                                                <MinusIcon fontSize="12px" />
-                                                            </Box>
-                                                        ) : (
-                                                            <Box px={2} justifySelf="flex-end">
-                                                                <AddIcon fontSize="12px" />
-                                                            </Box>
-                                                        )}
+                                                        ) : null}
                                                     </Flex>
                                                 </HStack>
                                             </Box>

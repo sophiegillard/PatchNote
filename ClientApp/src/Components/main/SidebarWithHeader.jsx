@@ -21,10 +21,11 @@ import {
     MenuList,
     Image,
     useMediaQuery,
-    Container,
+    Show,
     Heading,
     DrawerOverlay,
     MenuGroup,
+    Center,
     Button,
 } from "@chakra-ui/react";
 import { FiMenu, FiChevronDown } from "react-icons/fi";
@@ -174,105 +175,103 @@ const MobileNav = ({ onOpen, ...rest }) => {
         navigate("/login");
     };
     return (
-        <Flex
-            ml={{ base: 0, md: "190px" }}
-            pl={{ base: 4, md: 4 }}
-            mr={{ base: 0, md: 8 }}
-            p={{ base: 4, md: 0 }}
-            alignItems="center"
-            bgColor={{ base: "white", md: "transparent" }}
-            justifyContent={{ base: "space-between", md: "flex-end" }}
-            {...rest}
-        >
-            {auth().typeUtilisateur === 2 && !isLargerThan60em && (
-                <Flex
-                    borderRadius={"full"}
-                    bgGradient="linear(to-b, gray.500, gray.300)"
-                    height={"40px"}
-                    width="40px"
-                    justifyContent={"center"}
-                    alignItems="center"
-                >
-                    <FiMenu
-                        display={{ base: "flex", md: "none" }}
-                        onClick={onOpen}
-                        aria-label="open menu"
-                        cursor={"pointer"}
-                        color="white"
-                        size="30px"
-                    />
-                </Flex>
-            )}
-
-            {!isLargerThan60em && (
-                <Box boxSize="s">
-                    <Image src={smallLogo} alt="logo" height={"60px"} />
-                </Box>
-            )}
-
-            <HStack justifyContent="space-between" width={{ base: "", md: "100%" }} pt={{ base: "0", md: "4" }}>
-                {isLargerThan60em && (
+        <VStack bgColor={{ base: "white", md: "transparent" }} ml={{ base: 0, md: "190px" }} mr={{ base: 0, md: 8 }}>
+            <Flex p={{ base: 4, md: 0 }} alignItems="center" width={"full"} justifyContent={{ base: "space-between", md: "flex-end" }} {...rest}>
+                {auth().typeUtilisateur === 2 && !isLargerThan60em && (
                     <Flex
-                        alignItems={"baseline"}
-                        gap={{ base: "0", xl: "4" }}
-                        bgColor="white"
-                        borderRadius={"xl"}
-                        w="full"
-                        ml="5"
-                        py="2"
-                        px="8"
-                        flexDirection={{ base: "column", xl: "row" }}
+                        borderRadius={"full"}
+                        bgGradient="linear(to-b, gray.500, gray.300)"
+                        height={"40px"}
+                        width="40px"
+                        justifyContent={"center"}
+                        alignItems="center"
                     >
-                        <Heading fontSize="5xl" fontWeight="800" letterSpacing="0.1rem" fontFamily="Kalam, cursive" as={"i"} height="14">
-                            {t("main.general.title")}
-                        </Heading>
-
-                        <Text textTransform="full-size-kana">Retrouvez ici toutes les dernières informations relatives à votre plateforme</Text>
+                        <FiMenu
+                            display={{ base: "flex", md: "none" }}
+                            onClick={onOpen}
+                            aria-label="open menu"
+                            cursor={"pointer"}
+                            color="white"
+                            size="30px"
+                        />
                     </Flex>
                 )}
 
-                <Flex alignItems={"center"}>
-                    <Menu>
-                        <MenuButton
-                            p={{ base: "0", md: "4" }}
-                            py={{ base: "0", md: "10", lg: "7", xl: "4" }}
-                            transition="all 0.3s"
-                            _focus={{ boxShadow: "none" }}
+                {!isLargerThan60em && (
+                    <Box boxSize="s">
+                        <Image src={smallLogo} alt="logo" height={"60px"} />
+                    </Box>
+                )}
+
+                <HStack justifyContent="space-between" width={{ base: "", md: "100%" }} pt={{ base: "0", md: "5" }}>
+                    {isLargerThan60em && (
+                        <Flex
+                            alignItems={"baseline"}
+                            gap={{ base: "0", xl: "4" }}
                             bgColor="white"
                             borderRadius={"xl"}
+                            w="full"
+                            ml="5"
+                            py="2"
+                            px="8"
+                            flexDirection={{ base: "column", xl: "row" }}
                         >
-                            <HStack>
-                                <Avatar size={"sm"} bgGradient="linear(to-b, gray.500, gray.300)" height={"40px"} width="40px" />
+                            <Heading fontSize="4xl" fontWeight="700" letterSpacing="0.1rem" as={"i"} height="14">
+                                {t("main.general.title")}
+                            </Heading>
 
-                                <Box display={{ base: "none", md: "flex" }}>
-                                    <FiChevronDown />
-                                </Box>
-                            </HStack>
-                        </MenuButton>
-                        <MenuList bg={useColorModeValue("white", "gray.900")} borderColor={useColorModeValue("gray.200", "gray.700")}>
-                            <Text align="left" fontWeight="bold" fontSize="lg" ml="3" pb="3" pt="3">
-                                {auth().nom} {auth().prenom}
-                            </Text>
-                            <MenuDivider />
+                            <Text textTransform="full-size-kana">Retrouvez ici toutes les dernières informations relatives à votre plateforme</Text>
+                        </Flex>
+                    )}
 
-                            <MenuGroup title={t("main.userMenu.actions")}>
-                                <MenuItem> Mon compte</MenuItem>
-                                <MenuItem
-                                    onClick={() => {
-                                        logout();
-                                    }}
-                                >
-                                    {t("main.userMenu.logout")}
-                                </MenuItem>
-                            </MenuGroup>
+                    <Flex alignItems={"center"}>
+                        <Menu>
+                            <MenuButton
+                                p={{ base: "0", md: "4" }}
+                                py={{ base: "0", md: "10", lg: "7", xl: "4" }}
+                                transition="all 0.3s"
+                                _focus={{ boxShadow: "none" }}
+                                bgColor="white"
+                                borderRadius={"xl"}
+                            >
+                                <HStack>
+                                    <Avatar size={"sm"} bgGradient="linear(to-b, gray.500, gray.300)" height={"40px"} width="40px" />
 
-                            <MenuDivider />
+                                    <Box display={{ base: "none", md: "flex" }}>
+                                        <FiChevronDown />
+                                    </Box>
+                                </HStack>
+                            </MenuButton>
+                            <MenuList bg={useColorModeValue("white", "gray.900")} borderColor={useColorModeValue("gray.200", "gray.700")}>
+                                <Text align="left" fontWeight="bold" fontSize="lg" ml="3" pb="3" pt="3">
+                                    {auth().nom} {auth().prenom}
+                                </Text>
+                                <MenuDivider />
 
-                            <LanguageMenu />
-                        </MenuList>
-                    </Menu>
-                </Flex>
-            </HStack>
-        </Flex>
+                                <MenuGroup title={t("main.userMenu.actions")}>
+                                    <MenuItem> Mon compte</MenuItem>
+                                    <MenuItem
+                                        onClick={() => {
+                                            logout();
+                                        }}
+                                    >
+                                        {t("main.userMenu.logout")}
+                                    </MenuItem>
+                                </MenuGroup>
+
+                                <MenuDivider />
+
+                                <LanguageMenu />
+                            </MenuList>
+                        </Menu>
+                    </Flex>
+                </HStack>
+            </Flex>
+            <Show below="md">
+                <Heading fontSize="3xl" fontWeight="700" letterSpacing="0.1rem" as={"i"}>
+                    {t("main.general.title")}
+                </Heading>
+            </Show>
+        </VStack>
     );
 };

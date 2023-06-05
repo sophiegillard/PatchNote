@@ -12,7 +12,7 @@
       "nl": "NL"
     },
     "general": {
-      "title": "Patch Note",
+      "title": "News & Updates",
       "filter": "Filtres",
       "search": "Rechercher",
       "footer": "© 2023 Patch Note",
@@ -70,7 +70,7 @@
       "title": "Catégorie",
       "list": {
         "New feature": "Nouveauté",
-        "Bug fix": "Correction de bug",
+        "Bug fix": "Correction",
         "Improvement": "Amélioration",
         "Other": "Autre"
       }

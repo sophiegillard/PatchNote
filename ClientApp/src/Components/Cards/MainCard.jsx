@@ -32,7 +32,7 @@ export const MainCard = ({ inputValue, articles, isArticleLoading }) => {
                             {({ isExpanded }) => (
                                 <>
                                     <h2 style={{ paddingBottom: 0 }}>
-                                        <AccordionButton borderRadius="xl" padding={0} bgColor="white" shadow="lg">
+                                        <AccordionButton borderRadius="xl" padding={0} bgColor={"#f0f0f0"} shadow="lg">
                                             <Box as="span" flex="1" textAlign="left" minHeight="130px">
                                                 <HStack height="100%">
                                                     <Flex
