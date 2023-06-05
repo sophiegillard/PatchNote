@@ -19,9 +19,9 @@ export const articlePaginationQuery = (categoryId, moduleId, startDate, endDate,
     )
 }
 
-export const useArticleLoadMoreQuery = (categoryId, moduleId, startDate, endDate, search, userId) => {
+export const useArticleLoadMoreQuery = (categoryId, moduleId, startDate, endDate, search) => {
     return useInfiniteQuery({
-        queryKey: ["articleLoadMore", categoryId, moduleId, startDate, endDate, search, userId],
+        queryKey: ["articleLoadMore", categoryId, moduleId, startDate, endDate, search],
         getNextPageParam: prevData => prevData.nextPage,
-        queryFn: ({pageParam = 1 }) => getAllArticlesLoadMore(categoryId, moduleId, startDate, endDate, search, userId, pageParam),
+        queryFn: ({pageParam = 1 }) => getAllArticlesLoadMore(categoryId, moduleId, startDate, endDate, search, pageParam),
     })}

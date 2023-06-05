@@ -1,112 +1,104 @@
 import { useRoutes } from "react-router-dom";
-import {LoginPage} from "../pages/LoginPage";
-import {Home} from "../Pages/Home.jsx";
-import {RequireAuth} from "react-auth-kit";
-import {ProtectedRouteAdmin} from "../Actions/ProtectedRouteAdmin";
-import {ProtectedRouteCustomer} from "../Actions/ProtectedRouteCustomer.jsx";
-import {Mailbox} from "../Pages/AdminPages/Mailbox/Mailbox.jsx";
-import {LeaveMessage} from "../Pages/CustomerPages/LeaveMessage.jsx";
-import {Commits} from "../Pages/AdminPages/Commit/Commits.jsx";
-import {PatchNoteHandler} from "../Pages/AdminPages/Article/PatchNoteHandler.jsx";
-import {NewsletterHandler} from "../Pages/AdminPages/Newsletter/NewsletterHandler.jsx";
-import {AddArticle} from "../Pages/AdminPages/Article/AddArticle";
-import {IndiviualArticle} from "../Pages/AdminPages/Article/IndiviualArticle.jsx";
-import {UpdateArticle} from "../Pages/AdminPages/Article/UpdateArticle.jsx";
-import {UpdateNewsletter} from "../Pages/AdminPages/Newsletter/UpdateNewsletter.jsx";
-import {IndividualNewsletter} from "@/Pages/AdminPages/Newsletter/IndividualNewsletter.jsx";
-import {ProtectedRouteAllUser} from "@/Actions/ProtectedRouteAllUser.jsx";
+import { LoginPage } from "../pages/LoginPage";
+import { Home } from "../Pages/Home.jsx";
+import { RequireAuth } from "react-auth-kit";
+import { ProtectedRouteAdmin } from "../Actions/ProtectedRouteAdmin";
+import { ProtectedRouteCustomer } from "../Actions/ProtectedRouteCustomer.jsx";
+import { Mailbox } from "../Pages/AdminPages/Mailbox/Mailbox.jsx";
+import { LeaveMessage } from "../Pages/CustomerPages/LeaveMessage.jsx";
+import { PatchNoteHandler } from "../Pages/AdminPages/Article/PatchNoteHandler.jsx";
+import { NewsletterHandler } from "../Pages/AdminPages/Newsletter/NewsletterHandler.jsx";
+import { AddArticle } from "../Pages/AdminPages/Article/AddArticle";
+import { IndiviualArticle } from "../Pages/AdminPages/Article/IndiviualArticle.jsx";
+import { UpdateArticle } from "../Pages/AdminPages/Article/UpdateArticle.jsx";
+import { UpdateNewsletter } from "../Pages/AdminPages/Newsletter/UpdateNewsletter.jsx";
+import { IndividualNewsletter } from "@/Pages/AdminPages/Newsletter/IndividualNewsletter.jsx";
+import { ProtectedRouteAllUser } from "@/Actions/ProtectedRouteAllUser.jsx";
 
-export const Routes = () =>{
+export const Routes = () => {
     let route = useRoutes([
-
         //Access to all users
         {
             path: "/login",
-            element : <LoginPage />,
+            element: <LoginPage />,
         },
 
         //Pages accessible by all users
         {
             path: "/",
-            element :
+            element: (
                 <RequireAuth loginPath="/login">
                     <ProtectedRouteAllUser />
-                </RequireAuth>,
+                </RequireAuth>
+            ),
             children: [
                 {
                     path: "/",
-                    element: <Home />
+                    element: <Home />,
                 },
-            ]
+            ],
         },
 
         //Pages accessibles by authorized customers (school admin)
         {
             path: "/",
-            element :
+            element: (
                 <RequireAuth loginPath="/login">
                     <ProtectedRouteCustomer />
-                </RequireAuth>,
+                </RequireAuth>
+            ),
             children: [
                 {
                     path: "contact",
-                    element: <LeaveMessage />
+                    element: <LeaveMessage />,
                 },
-            ]
+            ],
         },
 
         //Pages accessibles by APSCHOOL staff
         {
             path: "/",
-            element :
+            element: (
                 <RequireAuth loginPath="/login">
                     <ProtectedRouteAdmin />
-                </RequireAuth>,
+                </RequireAuth>
+            ),
             children: [
                 {
                     path: "messagerie",
-                    element: <Mailbox />
+                    element: <Mailbox />,
                 },
                 {
                     path: "newsletter",
-                    element: <NewsletterHandler />
+                    element: <NewsletterHandler />,
                 },
                 {
                     path: "/newsletter/:id",
-                    element: <IndividualNewsletter/>
+                    element: <IndividualNewsletter />,
                 },
                 {
                     path: "/newsletter/update/:id",
-                    element: <UpdateNewsletter/>
+                    element: <UpdateNewsletter />,
                 },
                 {
                     path: "patchNote",
-                    element: <PatchNoteHandler />
+                    element: <PatchNoteHandler />,
                 },
                 {
                     path: "/article/:id",
-                    element: <IndiviualArticle/>
+                    element: <IndiviualArticle />,
                 },
                 {
                     path: "/article/update/:id",
-                    element: <UpdateArticle/>
+                    element: <UpdateArticle />,
                 },
                 {
                     path: "addArticle",
-                    element: <AddArticle />
+                    element: <AddArticle />,
                 },
-                {
-                    path: "commits",
-                    element: <Commits />
-                },
-            ]
+            ],
         },
+    ]);
 
-    ])
-
-    return (
-        <>
-            {route}
-        </>
-    )
-}
+    return <>{route}</>;
+};

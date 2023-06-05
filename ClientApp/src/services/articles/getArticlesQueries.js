@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //Get articles for home page with load more option
-export const getAllArticlesLoadMore = async (categoryId, moduleId, startDate, endDate, search, userId, _page) => {
+export const getAllArticlesLoadMore = async (categoryId, moduleId, startDate, endDate, search, _page) => {
     const limit = 10;
     const params = {
         _limit : limit,
@@ -10,8 +10,7 @@ export const getAllArticlesLoadMore = async (categoryId, moduleId, startDate, en
         ModuleId: moduleId,
         StartDate: startDate,
         EndDate: endDate,
-        Search: search,
-        UserId: userId
+        Search: search
     };
     return axios
         .get(`${import.meta.env.VITE_DEV_BASE_URL}/article/details/loadMore`, {params: params})

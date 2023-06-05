@@ -1,29 +1,15 @@
-import logo from "@/assets/images/module_icon/module_base.png";
-import absences from "@/assets/images/module_icon/module_absences.png";
-import bulletin from "@/assets/images/module_icon/module_bulletin.png";
-import debug from "@/assets/images/module_icon/module_debug.png";
-import discipline from "@/assets/images/module_icon/module_discipline.png";
-import distributeurs from "@/assets/images/module_icon/module_distributeurs.png";
-import evenements from "@/assets/images/module_icon/module_evenements.png";
-import financier from "@/assets/images/module_icon/module_financier.png";
-import fwb from "@/assets/images/module_icon/module_fwb.png";
-import garderie from "@/assets/images/module_icon/module_garderie.png";
-import importation from "@/assets/images/module_icon/module_import.png";
-import internat from "@/assets/images/module_icon/module_internat.png";
-import journauxEducateurs from "@/assets/images/module_icon/module_journaux_educateurs.png";
-import journalDeClasse from "@/assets/images/module_icon/module_journal_classe.png";
-import messagerie from "@/assets/images/module_icon/module_messagerie.png";
-import pedagogique from "@/assets/images/module_icon/module_pedagogique.png";
-import plaine from "@/assets/images/module_icon/module_plaine.png";
-import pointages from "@/assets/images/module_icon/module_pointage.png";
-import ramassages from "@/assets/images/module_icon/module_ramassage.png";
-import reunionParents from "@/assets/images/module_icon/module_reunions_parents.png";
-import reservationLocaux from "@/assets/images/module_icon/module_locaux.png";
-import retards from "@/assets/images/module_icon/module_retards.png";
-import repas from "@/assets/images/module_icon/module_repas.png";
-import suiviPedagogique from "@/assets/images/module_icon/module_suivi_pedagogique.png";
-import valvesNews from "@/assets/images/module_icon/module_valves.png";
-import webshop from "@/assets/images/module_icon/module_webshop.png";
+import logo from "@/assets/images/module_icon/base.png";
+import messagerie from "@/assets/images/module_icon/messagerie.png";
+import commande from "@/assets/images/module_icon/commande.png";
+import menu from "@/assets/images/module_icon/menu.png";
+import dashboard from "@/assets/images/module_icon/dashboard.png";
+import livraison from "@/assets/images/module_icon/livraison.png";
+import paiement from "@/assets/images/module_icon/paiement.png";
+import services from "@/assets/images/module_icon/services.png";
+import promotion from "@/assets/images/module_icon/promotion.png";
+import légilsation from "@/assets/images/module_icon/légilsation.png";
+import hygiène from "@/assets/images/module_icon/hygiène.png";
+import autre from "@/assets/images/module_icon/autre.png";
 
 
 export const categoryColors = {
@@ -59,30 +45,14 @@ export const TextGradients = {
 export const moduleIcons = {
     'Base': logo,
     'Messagerie': messagerie,
-    'Réservation locaux': reservationLocaux,
-    'Valves et news': valvesNews,
-    'Distributeurs': distributeurs,
-    'Évènements': evenements,
-    'Plaines': plaine,
-    'Garderie': garderie,
-    'Internat': internat,
-    "Repas": repas,
-    "Webshop": webshop,
-    "Financier": financier,
-    "Coda": logo,
-    "Pédagogique": pedagogique,
-    "Discipline": discipline,
-    "Absences": absences,
-    "Bulletin": bulletin,
-    "Suivi pédagogique": suiviPedagogique,
-    "Réunions parents": reunionParents,
-    "Journal de classe": journalDeClasse,
-    "Ramassages": ramassages,
-    "Pointages": pointages,
-    "ISBW": logo,
-    "Importation": importation,
-    "Retards": retards,
-    "Debug": debug,
-    "Journaux éducateurs": journauxEducateurs,
-    "FWB": fwb,
+    "Commande": commande,
+    "Menu": menu,
+    "Dashboard": dashboard,
+    "Livraison": livraison,
+    "Paiement": paiement,
+    "Services": services,
+    "Promotion": promotion,
+    "Légilsation": légilsation,
+    "Hygiène": hygiène,
+    "Autre": autre
 };

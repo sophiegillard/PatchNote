@@ -17,19 +17,3 @@ export const useAllModulesQuery = () => {
 }
 
 
-// Get only the modules of the user
-export const getUsersModules = async (userId) => {
-    const { data } = await axios.get(`${import.meta.env.VITE_DEV_BASE_URL}/usersModules?userId=${userId}`);
-    const transformedData = data.map((module) => ({
-        id: module.id,
-        title: t(`filters.filters_modules.list.${module.nom}`),
-    }));
-    return transformedData;
-}
-//Query to call user's modules and handle datas.
-export const useUsersModulesQuery = (userId) => {
-    return useQuery(
-        'usersModules',
-        () => getUsersModules(userId));
-}
-
