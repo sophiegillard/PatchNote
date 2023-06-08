@@ -43,7 +43,7 @@ export const SidebarWithHeader = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <Box minH="100vh">
+        <Box>
             <SidebarContent onClose={() => onClose} display={{ base: "none", md: "block" }} />
             <Drawer autoFocus={false} isOpen={isOpen} placement="left" onClose={onClose} returnFocusOnClose={false} onOverlayClick={onClose}>
                 <DrawerOverlay />
@@ -61,7 +61,7 @@ export const SidebarWithHeader = ({ children }) => {
                 borderRadius="2xl"
                 bgColor="white"
                 shadow={{ base: "none", md: "sm" }}
-                minHeight={"81vh"}
+                flexGrow="1"
             >
                 {children}
             </Box>
@@ -250,11 +250,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
                             </MenuButton>
                             <MenuList bg={useColorModeValue("white", "gray.900")} borderColor={useColorModeValue("gray.200", "gray.700")}>
                                 <Text align="left" fontWeight="bold" fontSize="lg" ml="3" pb="3" pt="3">
-                                    {auth().nom} {auth().prenom}
+                                    {auth().nom}
                                 </Text>
                                 <MenuDivider />
 
-                                <MenuGroup title={t("main.userMenu.actions")}>
+                                <MenuGroup>
                                     <MenuItem> Mon compte</MenuItem>
                                     <MenuItem
                                         onClick={() => {
