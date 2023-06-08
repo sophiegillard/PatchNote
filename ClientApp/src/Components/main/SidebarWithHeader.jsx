@@ -61,7 +61,7 @@ export const SidebarWithHeader = ({ children }) => {
                 borderRadius="2xl"
                 bgColor="white"
                 shadow={{ base: "none", md: "sm" }}
-                minHeight={"79vh"}
+                minHeight={"81vh"}
             >
                 {children}
             </Box>

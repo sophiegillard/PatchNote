@@ -29,7 +29,7 @@ export const IndiviualArticle = () => {
 
     return (
         <SidebarWithHeader>
-            <Flex flexDirection={"column"} height={{ base: "90vh", md: "82vh", lg: "84vh", xl: "87vh" }}>
+            <Flex flexDirection={"column"}>
                 <BackAndTitle pageTitle={`${t("pages.patch_note.patch_note_show")} ${data.id}`} backNavigation={"/patchNote"}>
                     <Show above={"sm"}>
                         <EditButton redirectLink={`/article/update/${data.id}`} />
@@ -51,17 +51,15 @@ export const IndiviualArticle = () => {
                         <ArticleDisplayTabPanel data={data} languageCode={"NL"} isLargerThanMd={isLargerThanMd} />
                     </LanguageTabList>
 
-                    <Box>
-                        <Show below="sm">
-                            <MobileCircleButton
-                                icon={<FiEdit2 />}
-                                redirectLink={`/article/update/${data.id}`}
-                                bottomPx={"20px"}
-                                rightPx={"20px"}
-                                bgGradient={"linear(to-r, yellowGradient.start, yellowGradient.end)"}
-                            />
-                        </Show>
-                    </Box>
+                    <Show below="sm">
+                        <MobileCircleButton
+                            icon={<FiEdit2 />}
+                            redirectLink={`/article/update/${data.id}`}
+                            bottomPx={"20px"}
+                            rightPx={"20px"}
+                            bgGradient={"linear(to-r, yellowGradient.start, yellowGradient.end)"}
+                        />
+                    </Show>
                 </Stack>
             </Flex>
         </SidebarWithHeader>

@@ -9,7 +9,6 @@ import { PrimaryActionButton } from "@/Components/Buttons/PrimaryActionButton.js
 export const MainCard = ({ inputValue, articles, isArticleLoading }) => {
     const { t, i18n } = useTranslation();
     const lng = i18n.language.toUpperCase(); // log the current language
-    console.log([`description${lng}`]);
 
     if (isArticleLoading)
         return (
