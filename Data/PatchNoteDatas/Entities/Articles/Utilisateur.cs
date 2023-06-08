@@ -10,5 +10,6 @@ public class Utilisateur
     public int Newsletter { get; set; }
     public string Langue { get; set; }
     public string Email { get; set; }
+    public int TypeUtilisateur { get; set; }
 }
 

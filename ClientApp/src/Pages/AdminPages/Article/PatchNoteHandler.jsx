@@ -5,10 +5,7 @@ import { useAuthUser } from "react-auth-kit";
 import { TableAdmin } from "@/Components/Table/TableAdmin.jsx";
 import { AddButton } from "@/Components/Buttons/AddButton.jsx";
 import { FilterDrawerPatchNoteAdmin } from "@/Components/Filters/FilterDrawerPatchNoteAdmin.jsx";
-import {
-    articlePaginationQuery,
-    articlesQuery,
-} from "@/services/queries/articlesQuery.js";
+import { articlePaginationQuery, articlesQuery } from "@/services/queries/articlesQuery.js";
 import { IoMdAdd } from "react-icons/all.js";
 import { MobileCircleButton } from "@/Components/Buttons/MobileCircleButton.jsx";
 import { PageHeader } from "@/Components/main/PageHeader";
@@ -44,17 +41,16 @@ export const PatchNoteHandler = () => {
         sortColumn,
         sortDirection
     );
-    const { data: pagination, isLoading: isPaginationLoading } =
-        articlePaginationQuery(
-            activeCategorieIdFilter,
-            activeModuleIdFilter,
-            startDatePublication,
-            endDatePublication,
-            currentPage,
-            stateArticle,
-            sortColumn,
-            sortDirection
-        );
+    const { data: pagination, isLoading: isPaginationLoading } = articlePaginationQuery(
+        activeCategorieIdFilter,
+        activeModuleIdFilter,
+        startDatePublication,
+        endDatePublication,
+        currentPage,
+        stateArticle,
+        sortColumn,
+        sortDirection
+    );
 
     return (
         <SidebarWithHeader>
@@ -66,23 +62,13 @@ export const PatchNoteHandler = () => {
                             <AddButton redirectLink={"/addArticle"} />
                             <FilterDrawerPatchNoteAdmin
                                 activeDatePublication={activeDatePublication}
-                                setActiveDatePublication={
-                                    setActiveDatePublication
-                                }
-                                setStartDatePublication={
-                                    setStartDatePublication
-                                }
+                                setActiveDatePublication={setActiveDatePublication}
+                                setStartDatePublication={setStartDatePublication}
                                 setEndDatePublication={setEndDatePublication}
-                                activeCategorieIdFilter={
-                                    activeCategorieIdFilter
-                                }
-                                setActiveCategorieIdFilter={
-                                    setActiveCategorieIdFilter
-                                }
+                                activeCategorieIdFilter={activeCategorieIdFilter}
+                                setActiveCategorieIdFilter={setActiveCategorieIdFilter}
                                 activeModuleIdFilter={activeModuleIdFilter}
-                                setActiveModuleIdFilter={
-                                    setActiveModuleIdFilter
-                                }
+                                setActiveModuleIdFilter={setActiveModuleIdFilter}
                                 sortColumn={sortColumn}
                                 setSortColumn={setSortColumn}
                                 sortDirection={sortDirection}
@@ -116,11 +102,9 @@ export const PatchNoteHandler = () => {
                         <MobileCircleButton
                             icon={<IoMdAdd />}
                             redirectLink={"/addArticle"}
-                            bottomPx={"20px"}
+                            bottomPx={"80px"}
                             rightPx={"20px"}
-                            bgGradient={
-                                "linear(to-r, successButton.600, successButton.400)"
-                            }
+                            bgGradient={"linear(to-r, successButton.600, successButton.400)"}
                         />
 
                         <FilterDrawerPatchNoteAdmin
@@ -129,9 +113,7 @@ export const PatchNoteHandler = () => {
                             setStartDatePublication={setStartDatePublication}
                             setEndDatePublication={setEndDatePublication}
                             activeCategorieIdFilter={activeCategorieIdFilter}
-                            setActiveCategorieIdFilter={
-                                setActiveCategorieIdFilter
-                            }
+                            setActiveCategorieIdFilter={setActiveCategorieIdFilter}
                             activeModuleIdFilter={activeModuleIdFilter}
                             setActiveModuleIdFilter={setActiveModuleIdFilter}
                             sortColumn={sortColumn}

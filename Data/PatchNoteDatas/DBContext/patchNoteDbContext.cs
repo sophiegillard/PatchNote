@@ -119,10 +119,6 @@ public partial class patchNoteDbContext : DbContext
                 .IsRequired()
                 .HasMaxLength(255);
 
-            entity.Property(e => e.Ecole)
-                .IsRequired()
-                .HasMaxLength(255);
-
             entity.Property(e => e.IsLu).HasColumnType("tinyint");
 
             entity.Property(e => e.Message).IsRequired();

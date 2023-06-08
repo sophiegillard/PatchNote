@@ -173,9 +173,9 @@
       "login_submit": "Inloggen",
       "login_error": "Het veld is verplicht."
     },
-    "home_customer": {
-      "home_customer": "ontvangst",
-      "home_customer_subtitle": "Alle updates"
+    "home": {
+      "home_title": "Nieuws en updates",
+      "home_subtitle": "Hier vindt u alle laatste informatie met betrekking tot uw platform"
     },
     "patch_note": {
       "patch_note_title": "Beheer van patchnotities",

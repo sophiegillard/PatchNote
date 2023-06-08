@@ -166,7 +166,7 @@ public class ArticleControllerGet : ControllerBase
     public async Task<IActionResult> GetDetailedArticlesLodedMoreAsync([FromQuery] ArticleFilterParams filterParams,
                                                                             int? _page,
                                                                             int? _limit,
-                                                                            string? search, int userId)
+                                                                            string? search)
     {
         IQueryable<Article> articlesQuery = _patchNoteDbContext.Articles
                                                 .OrderByDescending(a => a.DatePublication)

@@ -10,6 +10,12 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public int Id { get; set; }
         public string TitreFR { get; set; }
         public string ContenuFR { get; set; }
+
+        public string TitreEN { get; set; }
+        public string ContenuEN { get; set; }
+
+        public string TitreNL { get; set; }
+        public string ContenuNL { get; set; }
         public string Categorie { get; set; }
         public string Module { get; set; }
         public int AuteurId { get; set; }

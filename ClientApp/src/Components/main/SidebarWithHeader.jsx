@@ -29,7 +29,7 @@ import {
     Button,
 } from "@chakra-ui/react";
 import { FiMenu, FiChevronDown } from "react-icons/fi";
-import logo from "../../assets/images/Logo_foodBell.png";
+import logo from "../../assets/images/logo_blue.png";
 import smallLogo from "../../assets/images/logo_raw.png";
 import paperPlane from "../../assets/images/paper-plane.png";
 import { useAuthUser, useSignOut } from "react-auth-kit";
@@ -55,12 +55,13 @@ export const SidebarWithHeader = ({ children }) => {
             <MobileNav onOpen={onOpen} />
             <Box
                 ml={{ base: 0, md: 52 }}
-                mr={{ base: 0, md: 8 }}
+                mr={{ base: 0, md: 4 }}
+                mb={{ base: 0, md: 5 }}
                 mt={{ base: 0, md: 2 }}
-                p={{ base: 0, lg: 4 }}
                 borderRadius="2xl"
                 bgColor="white"
-                shadow={"xl"}
+                shadow={{ base: "none", md: "sm" }}
+                minHeight={"79vh"}
             >
                 {children}
             </Box>
@@ -82,6 +83,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
                 flexDirection={"column"}
                 h="100%"
                 flexGrow={"1"}
+                shadow={{ base: "none", md: "xl" }}
             >
                 <VStack p="4" gap="5">
                     <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} alignSelf="flex-end" />
@@ -144,9 +146,9 @@ const NavItem = ({ icon, children, link, ...rest }) => {
                     fontWeight: isActive ? "600" : "",
                     padding: "15px",
                     marginInline: "8px",
-                    color: isActive ? "white" : "",
-                    borderRadius: "20px",
-                    background: isActive ? "linear-gradient(90deg, rgba(51,106,158,1) 0%, rgba(83,144,203,1) 100%)" : "",
+                    color: isActive ? "rgba(51,106,158,1)" : "",
+                    borderRadius: "7px",
+                    // background: isActive ? "linear-gradient(90deg, rgba(51,106,158,1) 0%, rgba(83,144,203,1) 100%)" : "",
                     // Add styles for hover effect
                     transition: "all 0.2s ease-in-out",
                     ":hover": {
@@ -175,7 +177,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         navigate("/login");
     };
     return (
-        <VStack bgColor={{ base: "white", md: "transparent" }} ml={{ base: 0, md: "190px" }} mr={{ base: 0, md: 8 }}>
+        <VStack bgColor={{ base: "white", md: "transparent" }} ml={{ base: 0, md: "190px" }} mr={{ base: 0, md: 4 }}>
             <Flex p={{ base: 4, md: 0 }} alignItems="center" width={"full"} justifyContent={{ base: "space-between", md: "flex-end" }} {...rest}>
                 {auth().typeUtilisateur === 2 && !isLargerThan60em && (
                     <Flex
@@ -207,32 +209,36 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     {isLargerThan60em && (
                         <Flex
                             alignItems={"baseline"}
-                            gap={{ base: "0", xl: "4" }}
+                            gap={{ base: "2", xl: "4" }}
                             bgColor="white"
                             borderRadius={"xl"}
                             w="full"
                             ml="5"
-                            py="2"
-                            px="8"
-                            flexDirection={{ base: "column", xl: "row" }}
+                            px="4"
+                            flexDirection={{ base: "column" }}
+                            minHeight={{ base: "12", md: "24", lg: "24" }}
+                            justifyContent={"center"}
                         >
-                            <Heading fontSize="4xl" fontWeight="700" letterSpacing="0.1rem" as={"i"} height="14">
-                                {t("main.general.title")}
+                            <Heading fontSize={{ base: "27px", xl: "3xl" }} fontWeight="700" letterSpacing="0.1rem" as={"i"}>
+                                {t("pages.home.home_title")}
                             </Heading>
 
-                            <Text textTransform="full-size-kana">Retrouvez ici toutes les dernières informations relatives à votre plateforme</Text>
+                            <Text textTransform="full-size-kana" fontSize={{ base: "13px", lg: "16px", xl: "16px" }}>
+                                {t("pages.home.home_subtitle")}
+                            </Text>
                         </Flex>
                     )}
 
                     <Flex alignItems={"center"}>
                         <Menu>
                             <MenuButton
-                                p={{ base: "0", md: "4" }}
-                                py={{ base: "0", md: "10", lg: "7", xl: "4" }}
+                                px={{ base: "0", md: "4" }}
                                 transition="all 0.3s"
                                 _focus={{ boxShadow: "none" }}
                                 bgColor="white"
                                 borderRadius={"xl"}
+                                shadow={{ base: "none", md: "sm" }}
+                                minHeight={{ base: "12", md: "24", lg: "24" }}
                             >
                                 <HStack>
                                     <Avatar size={"sm"} bgGradient="linear(to-b, gray.500, gray.300)" height={"40px"} width="40px" />
@@ -267,11 +273,6 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     </Flex>
                 </HStack>
             </Flex>
-            <Show below="md">
-                <Heading fontSize="3xl" fontWeight="700" letterSpacing="0.1rem" as={"i"}>
-                    {t("main.general.title")}
-                </Heading>
-            </Show>
         </VStack>
     );
 };

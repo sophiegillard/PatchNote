@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, HStack, Link, Show, Spinner, Stack, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, HStack, Link, Show, Heading, Stack, VStack, useMediaQuery } from "@chakra-ui/react";
 import { useAuthUser } from "react-auth-kit";
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "../Components/main/SearchBar.jsx";
@@ -86,9 +86,14 @@ export const Home = () => {
     return (
         <>
             <SidebarWithHeader>
-                <Container m="0" px="5" maxW="none" pt={{ base: 4, lg: 0 }}>
-                    {/*SearchBar*/}
-                    <HStack w="100%" justifyContent="space-between" pb={3}>
+                <VStack m="0" px="5" maxW="none" pt={{ base: 4, lg: 0 }}>
+                    <Show below="md">
+                        <Heading fontSize="2xl" fontWeight="700" letterSpacing="0.1rem" as={"i"} pb="3">
+                            {t("main.general.title")}
+                        </Heading>
+                    </Show>
+
+                    <HStack w="100%" justifyContent="space-between" pt="5">
                         <SearchBar
                             onChange={(e) => {
                                 setSearch(e.target.value);
@@ -113,7 +118,7 @@ export const Home = () => {
                     </HStack>
 
                     {/*Cards*/}
-                    <Stack spacing="4" pt="3">
+                    <Stack spacing="4" pt="3" w="100%">
                         {isLargerThan60em ? (
                             <MainCard inputValue={inputValue} articles={articles} isArticleLoading={isArticleLoading} />
                         ) : (
@@ -156,7 +161,7 @@ export const Home = () => {
 
                         {isVisible && <ScrollToTopButton isVisible={isVisible} scrollBehavior={scrollBehavior} />}
                     </Box>
-                </Container>
+                </VStack>
             </SidebarWithHeader>
         </>
     );

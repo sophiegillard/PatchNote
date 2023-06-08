@@ -173,9 +173,9 @@
       "login_submit": "Login",
       "login_error": "This fields is required."
     },
-    "home_customer": {
-      "home_customer": "Home",
-      "home_customer_subtitle": "All notes"
+    "home": {
+      "home_title": "News & Updates",
+      "home_subtitle": "Find all the latest information related to your platform here"
     },
     "patch_note": {
       "patch_note_title": "Patch note management",

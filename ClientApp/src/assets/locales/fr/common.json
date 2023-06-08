@@ -152,9 +152,9 @@
       "login_submit": "Se connecter",
       "login_error": "Le champ est requis."
     },
-    "home_customer": {
-      "home_customer": "Accueil",
-      "home_customer_subtitle": "Toutes les mises à jour"
+    "home": {
+      "home_title": "Nouveautés & Mises à jour",
+      "home_subtitle": "Retrouvez ici toutes les dernières informations relatives à votre plateforme"
     },
     "patch_note": {
       "patch_note_title": "Gestion du patch note",
@@ -272,8 +272,9 @@
               "message": "Etes-vous sûr(e) de vouloir effacer votre message?"
             }
           }
-        }
-      },
+        },
+      "article_deleting": "Etes-vous sûr(e) de vouloir supprimer l'article?"
+    },
     "messageRecommandationStatut": {
         "title": "Gestion du statut",
         "add_status": "Ajouter un statut"
@@ -284,4 +285,4 @@
       "newsletter_articles_older": "Articles plus anciens"
     }
   }
-  }
+}

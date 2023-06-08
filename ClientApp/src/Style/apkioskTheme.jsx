@@ -1,8 +1,8 @@
-import { extendTheme } from "@chakra-ui/react"
+import { extendTheme } from "@chakra-ui/react";
 
 export const apkioskTheme = extendTheme({
     colors: {
-        whiteApSchool:  "#f0f5fa",
+        whiteApSchool: "#f0f5fa",
         whiteTransparent: "rgba(255,255,255,0.4)",
         blue: {
             50: "#8788a6",
@@ -81,6 +81,22 @@ export const apkioskTheme = extendTheme({
             700: "#2d5c8a",
             800: "#204263",
         },
+        // primaryBlue: {
+        //     5: "#e8f3ea",
+        //     10: "#d0e7d4",
+        //     20: "#b9dabf",
+        //     50: "#a1ceaa",
+        //     100: "#5baa6a",
+        //     200: "#449d55",
+        //     300: "#2c913f",
+        //     transparent300: "rgba(83,144,203,0.38)",
+        //     400: "#15852a",
+        //     transparent400: "rgba(64,132,197,0.53)",
+        //     500: "#137826",
+        //     600: "#116a22",
+        //     700: "#0f5d1d",
+        //     800: "#0d5019",
+        // },
         secondaryPurple: {
             50: "#dabbfc",
             100: "#cba0fb",
@@ -93,7 +109,7 @@ export const apkioskTheme = extendTheme({
             600: "#6c4795",
             700: "#5a3c7d",
             800: "#483064",
-            900:"#401d5b",
+            900: "#401d5b",
         },
         tercaryPink: {
             50: "#f4bbe5",
@@ -130,8 +146,8 @@ export const apkioskTheme = extendTheme({
             bugFixEnd: "#B568B4",
             otherStart: "#00717C",
             otherEnd: "#28A745",
-            redStart : "#FC4B6C",
-            redEnd : "#C13650",
+            redStart: "#FC4B6C",
+            redEnd: "#C13650",
         },
         gradientColorsTransparent: {
             newFeatureStart: "rgba(64,132,197,0.15)",
@@ -157,60 +173,60 @@ export const apkioskTheme = extendTheme({
     fonts: {
         heading: `'Open Sans', sans-serif`,
         body: `'Open Sans', sans-serif`,
-        caveat : `'Caveat', cursive`,
+        caveat: `'Caveat', cursive`,
     },
     textStyles: {
         h4: {
-            fontFamily :"Open Sans",
-            fontSize: '20px',
-            fontWeight: '700',
-            letterSpacing: '20%',
-            color:'#3C3C3C',
+            fontFamily: "Open Sans",
+            fontSize: "20px",
+            fontWeight: "700",
+            letterSpacing: "20%",
+            color: "#3C3C3C",
         },
         h4Mobile: {
-            fontFamily :"Open Sans",
-            fontSize: '1rem',
-            fontWeight: '700',
-            letterSpacing: '20%',
-            color:'#3C3C3C',
+            fontFamily: "Open Sans",
+            fontSize: "1rem",
+            fontWeight: "700",
+            letterSpacing: "20%",
+            color: "#3C3C3C",
         },
         h5: {
-            fontSize: ['40px', '72px'],
-            fontWeight: 'lighter',
-            lineHeight: '140%',
-            letterSpacing: '10%',
-            color: 'blue.500',
+            fontSize: ["40px", "72px"],
+            fontWeight: "lighter",
+            lineHeight: "140%",
+            letterSpacing: "10%",
+            color: "blue.500",
         },
         h6: {
-            fontWeight: 'normal',
-            fontSize: '14px',
-            lineHeight: '4px',
-            letterSpacing: '-0.25px',
+            fontWeight: "normal",
+            fontSize: "14px",
+            lineHeight: "4px",
+            letterSpacing: "-0.25px",
         },
     },
     components: {
         Tab: {
             variants: {
-                adminTable:{
-                    fontWeight: 'bold',
+                adminTable: {
+                    fontWeight: "bold",
                     textTransform: "capitalization",
                     letterSpacing: "0.16rem",
-                    }
-                }
+                },
             },
+        },
         Input: {
             variants: {
                 backgroundFix: {
                     field: {
                         bg: "white.500",
-                        border: '1px',
-                        borderColor: 'gray.300',
+                        border: "1px",
+                        borderColor: "gray.300",
                         _hover: {
-                            borderColor: 'gray.400',
+                            borderColor: "gray.400",
                         },
                         _focus: {
-                            borderColor: 'gray.500',
-                            boxShadow: 'outline',
+                            borderColor: "gray.500",
+                            boxShadow: "outline",
                         },
                     },
                 },
@@ -220,20 +236,19 @@ export const apkioskTheme = extendTheme({
             },
         },
         Textarea: {
-            baseStyle:{
-                border: '1px',
-                borderColor: 'gray.300',
-            }
+            baseStyle: {
+                border: "1px",
+                borderColor: "gray.300",
+            },
         },
-        FormLabel:{
-                baseStyle:{
-                    fontWeight: 'bold',
-                    pt: '0.8rem',
-                    fontSize: '14px',
-                    lineHeight: '20px',
-                    letterSpacing: '-0.25px',
-                }
+        FormLabel: {
+            baseStyle: {
+                fontWeight: "bold",
+                pt: "0.8rem",
+                fontSize: "14px",
+                lineHeight: "20px",
+                letterSpacing: "-0.25px",
+            },
         },
     },
-
 });
