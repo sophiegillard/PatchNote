@@ -58,10 +58,11 @@ export const SidebarWithHeader = ({ children }) => {
                 mr={{ base: 0, md: 4 }}
                 mb={{ base: 0, md: 5 }}
                 mt={{ base: 0, md: 2 }}
-                borderRadius="2xl"
+                borderRadius={{ base: 0, md: "2xl" }}
                 bgColor="white"
                 shadow={{ base: "none", md: "sm" }}
                 flexGrow="1"
+                minH="80vh"
             >
                 {children}
             </Box>
@@ -201,7 +202,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
                 {!isLargerThan60em && (
                     <Box boxSize="s">
-                        <Image src={smallLogo} alt="logo" height={"60px"} />
+                        <Link href="/">
+                            <Image src={logo} alt="logo" height={"60px"} />
+                        </Link>
                     </Box>
                 )}
 

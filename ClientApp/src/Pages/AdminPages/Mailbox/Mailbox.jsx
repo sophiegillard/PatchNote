@@ -90,7 +90,7 @@ export const Mailbox = () => {
         <QueryClientProvider client={queryClient}>
             <SidebarWithHeader>
                 <Stack minW="100%" gap="4" maxH={{ base: "none", md: "78vh" }}>
-                    <Flex borderRadius="md" overscrollY={"true"} overflow="hidden">
+                    <Flex borderRadius="md" overflow="hidden">
                         <Flex
                             direction="column"
                             borderRight={{ base: "none", lg: "solid 2px" }}

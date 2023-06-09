@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     <ChakraProvider theme={apkioskTheme}>
                         <BrowserRouter>
                             <App />
-                            <ReactQueryDevtools />
+                            {/* <ReactQueryDevtools /> */}
                         </BrowserRouter>
                     </ChakraProvider>
                 </AuthProvider>

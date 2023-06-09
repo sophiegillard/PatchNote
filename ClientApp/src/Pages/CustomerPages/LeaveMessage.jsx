@@ -100,110 +100,112 @@ export const LeaveMessage = () => {
                 message={t("modales.sendingMessage.alert.message")}
                 handleSubmit={() => deleteMessage()}
             />
-            <Show above="xl">
-                <Image
-                    src={logo}
-                    position={"absolute"}
-                    maxWidth={"100%"}
-                    height={"30%"}
-                    overflow={"hidden"}
-                    bottom={0}
-                    zIndex={0}
-                    p={0}
-                    right={"-10"}
-                    top="38%"
-                />
-            </Show>
-            <Container minWidth={{ base: "70vw", xl: "60vw" }} maxH={{ base: "none", md: "60vh" }} zIndex={100} py={7}>
-                <Flex zIndex={30} flexDirection={{ base: "column", md: "row" }} gap={{ base: "4", md: "0" }}>
-                    <Center
-                        flexDirection="column"
-                        align="center"
-                        justifyContent={"space-between"}
-                        p="4"
-                        gap={{ base: "8", lg: "2" }}
-                        py={{ base: "4", lg: "8" }}
-                        maxW={{ base: "100%", lg: "35%" }}
-                        background="linear-gradient(151.52deg, #3D80BC 10.77%, #351153 91.65%)"
-                        borderRightRadius={{ base: "15", md: "0" }}
-                        borderRadius={15}
-                    >
-                        <Stack flexGrow={1} gap="4" justifyContent={"center"}>
-                            <Text color="White" fontSize={{ base: "xl", lg: "2xl" }} fontWeight={"bold"} as="i">
-                                L'équipe est à votre écoute!
-                            </Text>
-                            <Text as="h5" color="White" fontSize={{ base: "", lg: "xl" }} fontWeight={"light"}>
-                                Vous avez une idée d’amélioration ou un commentaire pour APSCHOOL?
-                            </Text>
-                            <Text as="i" fontSize={{ base: "", lg: "xl" }} color="White" fontWeight={"light"}>
-                                Partagez-le nous en remplissant ce formulaire.{" "}
-                            </Text>
-                        </Stack>
-                        <Image src={logo_white} alt={"Apschool_white"} width={{ base: "150px", lg: "200px" }} />
-                    </Center>
 
-                    <Flex bgColor="white" p="8" borderLeftRadius={{ base: "15", md: "0" }} borderRadius={15} width="100%">
-                        <Stack flexGrow="1">
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <Flex flexDirection={"column"} gap="6">
-                                    {createMessageMutation.isError && JSON.stringify(error)}
-                                    <FormControl isInvalid={errors.auteur}>
-                                        <Input
-                                            bgColor="white"
-                                            boxShadow="md"
-                                            name="auteur"
-                                            id="auteur"
-                                            placeholder="Votre nom"
-                                            {...register("auteur", {
-                                                required: t("main.errors.required_field"),
-                                                minLength: { value: 4, message: "Minimum 4 caractères requis" },
-                                            })}
-                                        />
-                                        <FormErrorMessage>{errors.auteur && errors.auteur.message}</FormErrorMessage>
-                                    </FormControl>
-
-                                    <FormControl isInvalid={errors.sujet}>
-                                        <Input
-                                            bgColor="white"
-                                            boxShadow="md"
-                                            name="sujet"
-                                            id="sujet"
-                                            placeholder="Sujet"
-                                            {...register("sujet", {
-                                                required: t("main.errors.required_field"),
-                                                minLength: { value: 4, message: "Minimum 4 caractères requis" },
-                                            })}
-                                        />
-                                        <FormErrorMessage>{errors.sujet && errors.sujet.message}</FormErrorMessage>
-                                    </FormControl>
-
-                                    <FormControl isInvalid={errors.message}>
-                                        <Textarea
-                                            bgColor="white"
-                                            boxShadow="md"
-                                            name="message"
-                                            id="message"
-                                            height={"250px"}
-                                            placeholder="Votre message"
-                                            {...register("message", {
-                                                required: t("main.errors.required_field"),
-                                                minLength: { value: 30, message: "Votre message trop court" },
-                                            })}
-                                        />
-                                        {errorMessage != "" && <p>{errorMessage}</p>}
-                                        <FormErrorMessage>{errors.message && errors.message.message}</FormErrorMessage>
-                                    </FormControl>
-
-                                    <Flex align="center" justifyContent={"center"} gap="3">
-                                        <CancelButton onClick={() => cancelSubmit()} flex={1} />
-                                        <SuccessButton text={t("main.general.submit")} flex={2} />
-                                    </Flex>
-                                </Flex>
-                            </form>
-                        </Stack>
-                    </Flex>
+            <Flex
+                minWidth={{ base: "70vw", xl: "60vw" }}
+                height={{ base: "none", md: "80vh" }}
+                zIndex={100}
+                justifyContent="center"
+                alignItems={"center"}
+                overflow={"hidden"}
+                overflowY="scroll"
+                flexDirection={{ base: "column", md: "row" }}
+            >
+                <Flex
+                    flexDirection="column"
+                    align="center"
+                    justifyContent={"space-between"}
+                    p="4"
+                    gap={{ base: "8", lg: "2" }}
+                    py={{ base: "4", lg: "8" }}
+                    maxW={{ base: "100%", lg: "35%" }}
+                    background="linear-gradient(151.52deg, #3D80BC 10.77%, #351153 91.65%)"
+                    borderRightRadius={{ base: "15", md: "0" }}
+                    borderRadius={15}
+                    minHeight="full"
+                    mx={{ base: "8", md: "0" }}
+                >
+                    <Stack flexGrow={1} gap="4" justifyContent={"center"}>
+                        <Text color="White" fontSize={{ base: "xl", lg: "2xl" }} fontWeight={"bold"} as="i">
+                            L'équipe est à votre écoute!
+                        </Text>
+                        <Text as="h5" color="White" fontSize={{ base: "", lg: "xl" }} fontWeight={"light"}>
+                            Vous avez une idée d’amélioration ou un commentaire ?
+                        </Text>
+                        <Text as="i" fontSize={{ base: "", lg: "xl" }} color="White" fontWeight={"light"}>
+                            Partagez-le nous en remplissant ce formulaire.{" "}
+                        </Text>
+                    </Stack>
                 </Flex>
-            </Container>
+                <Flex
+                    flexDirection={"column"}
+                    minHeight="full"
+                    p="8"
+                    borderLeftRadius={{ base: "15", md: "0" }}
+                    borderRadius={15}
+                    width="100%"
+                    flexGrow={"2"}
+                    justifyContent="center"
+                >
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        {createMessageMutation.isError && JSON.stringify(error)}
+
+                        <Flex flexDirection={"column"} gap="5">
+                            <FormControl isInvalid={errors.auteur}>
+                                <Input
+                                    bgColor="white"
+                                    boxShadow="md"
+                                    name="auteur"
+                                    id="auteur"
+                                    placeholder="Votre nom"
+                                    {...register("auteur", {
+                                        required: t("main.errors.required_field"),
+                                        minLength: { value: 4, message: "Minimum 4 caractères requis" },
+                                    })}
+                                />
+                                <FormErrorMessage>{errors.auteur && errors.auteur.message}</FormErrorMessage>
+                            </FormControl>
+
+                            <FormControl isInvalid={errors.sujet}>
+                                <Input
+                                    bgColor="white"
+                                    boxShadow="md"
+                                    name="sujet"
+                                    id="sujet"
+                                    placeholder="Sujet"
+                                    {...register("sujet", {
+                                        required: t("main.errors.required_field"),
+                                        minLength: { value: 4, message: "Minimum 4 caractères requis" },
+                                    })}
+                                />
+                                <FormErrorMessage>{errors.sujet && errors.sujet.message}</FormErrorMessage>
+                            </FormControl>
+
+                            <FormControl isInvalid={errors.message}>
+                                <Textarea
+                                    bgColor="white"
+                                    boxShadow="md"
+                                    name="message"
+                                    id="message"
+                                    height={"250px"}
+                                    placeholder="Votre message"
+                                    {...register("message", {
+                                        required: t("main.errors.required_field"),
+                                        minLength: { value: 30, message: "Votre message trop court" },
+                                    })}
+                                />
+                                {errorMessage != "" && <p>{errorMessage}</p>}
+                                <FormErrorMessage>{errors.message && errors.message.message}</FormErrorMessage>
+                            </FormControl>
+
+                            <Flex align="center" justifyContent={"center"} gap="3">
+                                <CancelButton onClick={() => cancelSubmit()} flex={1} />
+                                <SuccessButton text={t("main.general.submit")} flex={2} />
+                            </Flex>
+                        </Flex>
+                    </form>
+                </Flex>
+            </Flex>
         </SidebarWithHeader>
     );
 };
