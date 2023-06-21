@@ -30,7 +30,6 @@ import {
 } from "@chakra-ui/react";
 import { FiMenu, FiChevronDown } from "react-icons/fi";
 import logo from "../../assets/images/logo_blue.png";
-import smallLogo from "../../assets/images/logo_raw.png";
 import paperPlane from "../../assets/images/paper-plane.png";
 import { useAuthUser, useSignOut } from "react-auth-kit";
 import { NavLink, useNavigate } from "react-router-dom";
