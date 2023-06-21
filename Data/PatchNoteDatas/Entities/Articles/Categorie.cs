@@ -1,5 +1,4 @@
-﻿#nullable disable
-
+﻿
 namespace PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
 
 public class Categorie

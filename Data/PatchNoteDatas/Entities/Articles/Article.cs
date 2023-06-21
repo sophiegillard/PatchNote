@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
-using PatchNote.Api.Data.PatchNoteDatas.Entities.Common;
 
 
 namespace PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
@@ -34,9 +32,6 @@ public partial class Article
 
     [ForeignKey(nameof(ModuleId))]
     public Module? Module { get; set; }
-
-    // [ForeignKey(nameof(UtilisateurId))]
-    // public UtilisateurApschool UtilisateurApschool { get; set; }
 
     [ForeignKey(nameof(NewsletterId))]
     public Newsletter? Newsletter { get; set; }
