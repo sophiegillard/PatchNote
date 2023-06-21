@@ -200,7 +200,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     </Flex>
                 )}
 
-                {!isLargerThan60em && (
+                {!isLargerThan60em && auth().typeUtilisateur === 1 && (
                     <Box boxSize="s">
                         <Link href="/">
                             <Image src={logo} alt="logo" height={"60px"} />

@@ -17,7 +17,7 @@ import { ProtectedRouteAllUser } from "@/Actions/ProtectedRouteAllUser.jsx";
 
 export const Routes = () => {
     let route = useRoutes([
-        //Access to all users
+        //Access to all
         {
             path: "/login",
             element: <LoginPage />,
@@ -39,7 +39,7 @@ export const Routes = () => {
             ],
         },
 
-        //Pages accessibles by authorized customers (school admin)
+        //Pages accessibles by authorized users
         {
             path: "/",
             element: (
@@ -55,7 +55,7 @@ export const Routes = () => {
             ],
         },
 
-        //Pages accessibles by APSCHOOL staff
+        //Pages accessibles by staff
         {
             path: "/",
             element: (

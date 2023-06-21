@@ -38,7 +38,6 @@
     },
     "userMenu": {
       "logout": "Afmelden",
-      "back_apschool": "Keer terug naar APSschool",
       "actions" : "Acties",
       "languages_options": "Taalopties"
     },
@@ -78,39 +77,18 @@
     "filters_modules": {
       "title": "modules",
       "list": {
-        "Base": "Base",
+        "Base": "Basis",
+        "Commande": "Bestelling",
+        "Menu": "Menu",
+        "Dashboard": "Dashboard",
+        "Livraison": "Levering",
         "Messagerie": "Berichten",
-        "Réservation locaux": "Lokalen",
-        "Valves et news": "Nieuws",
-        "Distributeurs": "Automaat",
-        "Évènements": "Evenementen",
-        "Plaines": "Buitenschoolse activiteit",
-        "Garderie": "Kinderopvang",
-        "Internat": "Internaat",
-        "Repas": "Reservatie",
-        "Webshop": "webshop",
-        "Financier": "Financieel",
-        "Coda": "coda",
-        "Pédagogique": "Pedagogisch",
-        "Discipline": "Discipline",
-        "Absences": "Afwezigheden",
-        "Bulletin": "Rapport",
-        "Suivi pédagogique": "Pedagogische begeleiding",
-        "Réunions parents": "Vergadering",
-        "Journal de classe": "School agenda",
-        "Ramassages": "Inzamelingen",
-        "Pointages": "Check-ins",
-        "ISBW": "ISBW",
-        "Importation": "Importeren",
-        "Retards": "Telaten",
-        "Debug": "Debuggen",
-        "Journaux éducateurs": "Agendas van opvoeders",
-        "FWB": "FWB",
-        "Recharge des comptes": "Herlaad rekeningen",
-        "Paiement Digiteal": "Digiteal betaling",
-        "Paiement Payzen": "Payzen betaling",
-        "Paiement Mollie": "Mollie betaling",
-        "Paiement Bancontact": "Bancontact betaling"
+        "Paiement": "Betaling",
+        "Services": "Diensten",
+        "Promotion": "Promotie",
+        "Législation": "Wetgeving",
+        "Hygiène": "Hygiëne",
+        "Autre": "Andere"
       }
     },
     "filters_state": {
@@ -166,12 +144,16 @@
       "no_email": "Geen bericht dat overeenkomt met uw zoekopdracht"
     },
     "login": {
-      "login": "Log in",
-      "login_title": "Maak verbinding met Patchopmerking",
-      "login_username": "ID kaart",
+      "login": "Inloggen",
+      "login_title": "Inloggen bij Patch Note",
+      "login_username": "Gebruikersnaam",
       "login_password": "Wachtwoord",
       "login_submit": "Inloggen",
-      "login_error": "Het veld is verplicht."
+      "login_error": "Dit veld is verplicht.",
+      "discover": "Ontdekken als",
+      "admin_try": "Beheerder",
+      "user_try": "Gebruiker",
+      "login_not_found": "Ongeldige gebruikersnaam of wachtwoord."
     },
     "home": {
       "home_title": "Nieuws en updates",
@@ -248,7 +230,19 @@
       "commit_sha": "Commit",
       "commit_message": "Bericht",
       "commit_date": "Date"
-    }
+    },
+    "leaveMessage": {
+      "leaveMessage_intro": "Het team staat voor je klaar!",
+      "leaveMessage_text_1": "Heb je ideeën ter verbetering of opmerkingen?",
+      "leaveMessage_text_2": "Deel ze met ons door dit formulier in te vullen.",
+      "leaveMessage_name": "Naam",
+      "leaveMessage_subject": "Onderwerp",
+      "leaveMessage_message": "Bericht",
+      "leaveMessage_send": "Verstuur",
+      "leaveMessage_cancel": "Annuleren",
+      "leaveMessage_success": "Bericht verstuurd",
+      "leaveMessage_error": "Fout bij het versturen van het bericht"
+      }
   },
   "modales": {
     "sendingMessage": {

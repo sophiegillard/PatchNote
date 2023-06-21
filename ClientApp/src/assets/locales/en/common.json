@@ -38,7 +38,6 @@
     },
     "userMenu": {
       "logout": "Logout",
-      "back_apschool": "Back to APSchool",
       "actions" : "Actions",
       "languages_options": "Languages"
     },
@@ -79,38 +78,17 @@
       "title": "Modules",
       "list": {
         "Base": "Base",
-        "Messagerie": "Mailbox",
-        "Réservation locaux": "Classrooms",
-        "Valves et news": "News",
-        "Distributeurs": "Distributors",
-        "Évènements": "Events",
-        "Plaines": "Extracurricular activity",
-        "Garderie": "Childcare",
-        "Internat": "Internship",
-        "Repas": "Reservation",
-        "Webshop": "Webshop",
-        "Financier": "Financial",
-        "Coda": "Coda",
-        "Pédagogique": "Pedagogical",
-        "Discipline": "Discipline",
-        "Absences": "Absences",
-        "Bulletin": "Report card",
-        "Suivi pédagogique": "Educational follow-up",
-        "Réunions parents": "Meetings",
-        "Journal de classe": "Class journal",
-        "Ramassages": "Pickups",
-        "Pointages": "Check-in",
-        "ISBW": "ISBW",
-        "Importation": "Importation",
-        "Retards": "Delays",
-        "Debug": "Debug",
-        "Journaux éducateurs": "Educators diaries",
-        "FWB": "FWB",
-        "Recharge des comptes": "Account recharge",
-        "Paiement Digiteal": "Digiteal payment",
-        "Paiement Payzen": "Payzen payment",
-        "Paiement Mollie": "Mollie payment",
-        "Paiement Bancontact": "Bancontact payment"
+        "Commande": "Order",
+        "Menu": "Menu",
+        "Dashboard": "Dashboard",
+        "Livraison": "Delivery",
+        "Messagerie": "Messaging",
+        "Paiement": "Payment",
+        "Services": "Services",
+        "Promotion": "Promotion",
+        "Législation": "Legislation",
+        "Hygiène": "Hygiene",
+        "Autre": "Other"
       }
     },
     "filters_state": {
@@ -171,7 +149,11 @@
       "login_username": "Username",
       "login_password": "Password",
       "login_submit": "Login",
-      "login_error": "This fields is required."
+      "login_error": "This fields is required.",
+      "discover": "Discover as",
+      "admin_try": "Admin",
+      "user_try": "User",
+      "login_not_found": "Incorrect username or password."
     },
     "home": {
       "home_title": "News & Updates",
@@ -248,7 +230,19 @@
       "commit_sha": "Commit",
       "commit_message": "Message",
       "commit_date": "Date"
-    }
+    },
+    "leaveMessage": {
+      "leaveMessage_intro": "The team is here to listen to you!",
+      "leaveMessage_text_1": "Do you have any improvement ideas or comments?",
+      "leaveMessage_text_2": "Share them with us by filling out this form.",
+      "leaveMessage_name": "Name",
+      "leaveMessage_subject": "Subject",
+      "leaveMessage_message": "Message",
+      "leaveMessage_send": "Send",
+      "leaveMessage_cancel": "Cancel",
+      "leaveMessage_success": "Message sent",
+      "leaveMessage_error": "Error sending the message"
+      }
   },
   "modales": {
     "sendingMessage": {

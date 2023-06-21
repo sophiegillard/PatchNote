@@ -29,7 +29,7 @@ export const getAllArticlesLoadMore = async (categoryId, moduleId, startDate, en
         });
 }
 
-//get articles for articles handling by APKIOSK with pagination
+//get articles for articles handling with pagination
 export const getAllArticles = async (categoryId, moduleId, startDate, endDate, page, filterType, sortColumn, sortDirection) => {
     const params = {
         CategoryId: categoryId,
