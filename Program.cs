@@ -6,7 +6,6 @@ using PatchNote.Api.Application.Authorization;
 using PatchNote.Api.Application.Services;
 using PatchNote.Api.Application.Services.NewsletterEmailService;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
-using PatchNote.Api.Models.DTOs.Requests;
 using PatchNote.Mapper;
 
 
@@ -66,11 +65,11 @@ var app = builder.Build();
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-        //     app.UseSwaggerUI(options =>
-        // {
-        //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        //     options.RoutePrefix = string.Empty;
-        // });
+        app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
     }
 }
 

@@ -2,7 +2,7 @@ import { Flex, Stack, Text, Accordion, AccordionItem, AccordionButton, Accordion
 import { useTranslation } from "react-i18next";
 import React from "react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import logo from "@/assets/images/module_icon/logo.png";
+import logo from "@/assets/images/module_icon/module_base.png";
 import { categoryColors, categoryGradients, moduleIcons, TextGradients } from "@/Style/MainCardStyle.js";
 
 export const MainCard = ({ inputValue, articles, isArticleLoading }) => {

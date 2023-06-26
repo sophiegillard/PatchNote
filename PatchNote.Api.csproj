@@ -7,6 +7,7 @@
         <UserSecretsId>aspnet-PatchNote.Api-C59FA41F-477F-4636-ABFA-CA11AACF893D</UserSecretsId>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
     <ItemGroup>
       <Folder Include="Data\DbContext\Interface" />
       <Folder Include="Data\Entities" />

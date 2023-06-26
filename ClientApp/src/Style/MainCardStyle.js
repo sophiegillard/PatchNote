@@ -7,9 +7,9 @@ import livraison from "@/assets/images/module_icon/livraison.png";
 import paiement from "@/assets/images/module_icon/paiement.png";
 import services from "@/assets/images/module_icon/services.png";
 import promotion from "@/assets/images/module_icon/promotion.png";
-import légilsation from "@/assets/images/module_icon/légilsation.png";
-import hygiène from "@/assets/images/module_icon/hygiène.png";
-import autre from "@/assets/images/module_icon/autre.png";
+import légilsation from "@/assets/images/module_icon/legislation.png";
+import hygiène from "@/assets/images/module_icon/hygiene.png";
+import autre from "@/assets/images/module_icon/module_base.png";
 
 
 export const categoryColors = {
