@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "react-auth-kit";
 import { Suspense } from "react";
-import { apkioskTheme } from "./Style/apkioskTheme.jsx";
+import { foodBellTheme } from "./Style/foodBellTheme.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -16,10 +16,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <QueryClientProvider client={queryClient}>
             <Suspense fallback="...is loading">
                 <AuthProvider authType={"localstorage"} authName={"_auth"}>
-                    <ChakraProvider theme={apkioskTheme}>
+                    <ChakraProvider theme={foodBellTheme}>
                         <BrowserRouter>
                             <App />
-                            <ReactQueryDevtools />
+                            {/* <ReactQueryDevtools /> */}
                         </BrowserRouter>
                     </ChakraProvider>
                 </AuthProvider>

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.Articles;
-using PatchNote.Api.Data.PatchNoteDatas.Entities.Common;
 using PatchNote.Api.Data.PatchNoteDatas.Entities.MessageRecommandation;
 
 #nullable disable
@@ -158,15 +157,6 @@ public partial class patchNoteDbContext : DbContext
                 .HasMaxLength(255);
         });
 
-        // modelBuilder.Entity<UtilisateurApschool>(entity =>
-        // {
-        //     entity.HasKey(e => e.UtilisateurApschoolId)
-        //         .HasName("PRIMARY");
-
-        //     entity.ToTable("utilisateur");
-
-        //     entity.Property(e => e.IsSubscribed).HasColumnType("tinyint");
-        // });
 
 
         OnModelCreatingPartial(modelBuilder);

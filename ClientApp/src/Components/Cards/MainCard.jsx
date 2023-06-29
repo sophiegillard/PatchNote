@@ -4,7 +4,6 @@ import React from "react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import logo from "@/assets/images/module_icon/logo.png";
 import { categoryColors, categoryGradients, moduleIcons, TextGradients } from "@/Style/MainCardStyle.js";
-import { PrimaryActionButton } from "@/Components/Buttons/PrimaryActionButton.jsx";
 
 export const MainCard = ({ inputValue, articles, isArticleLoading }) => {
     const { t, i18n } = useTranslation();
@@ -12,7 +11,7 @@ export const MainCard = ({ inputValue, articles, isArticleLoading }) => {
 
     if (isArticleLoading)
         return (
-            <Flex bgColor={"whiteApSchool"} height={"100vh"} alignItems={"center"} justifyContent={"center"}>
+            <Flex bgColor={"whiteFoodBell"} height={"100vh"} alignItems={"center"} justifyContent={"center"}>
                 <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primaryBlue.600" size="xl" />
             </Flex>
         );

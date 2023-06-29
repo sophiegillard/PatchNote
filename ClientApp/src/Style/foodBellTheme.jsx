@@ -1,8 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
 
-export const apkioskTheme = extendTheme({
+export const foodBellTheme = extendTheme({
     colors: {
-        whiteApSchool: "#f0f5fa",
+        whiteFoodBell: "#f0f5fa",
         whiteTransparent: "rgba(255,255,255,0.4)",
         blue: {
             50: "#8788a6",
@@ -81,22 +81,6 @@ export const apkioskTheme = extendTheme({
             700: "#2d5c8a",
             800: "#204263",
         },
-        // primaryBlue: {
-        //     5: "#e8f3ea",
-        //     10: "#d0e7d4",
-        //     20: "#b9dabf",
-        //     50: "#a1ceaa",
-        //     100: "#5baa6a",
-        //     200: "#449d55",
-        //     300: "#2c913f",
-        //     transparent300: "rgba(83,144,203,0.38)",
-        //     400: "#15852a",
-        //     transparent400: "rgba(64,132,197,0.53)",
-        //     500: "#137826",
-        //     600: "#116a22",
-        //     700: "#0f5d1d",
-        //     800: "#0d5019",
-        // },
         secondaryPurple: {
             50: "#dabbfc",
             100: "#cba0fb",

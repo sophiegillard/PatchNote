@@ -36,7 +36,7 @@ export const IndiviualArticle = () => {
                     </Show>
                 </BackAndTitle>
 
-                <Stack bgColor="white" borderRadius="lg" shadow="sm" p={4} gap={3} flexGrow="1">
+                <Stack bgColor="white" borderRadius="lg" p={4} gap={3} flexGrow="1">
                     {data.isBrouillon === 1 && (
                         <HStack spacing="6rem">
                             <Badge borderRadius="md" fontSize="1em" colorScheme="secondaryPurple">

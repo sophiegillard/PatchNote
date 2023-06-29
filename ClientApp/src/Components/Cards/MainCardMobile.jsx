@@ -11,7 +11,7 @@ export const MainCardMobile = ({ inputValue, articles, isArticleLoading }) => {
 
     if (isArticleLoading)
         return (
-            <Flex bgColor={"whiteApSchool"} height={"100vh"} alignItems={"center"} justifyContent={"center"}>
+            <Flex bgColor={"whiteFoodBell"} height={"100vh"} alignItems={"center"} justifyContent={"center"}>
                 <Spinner thickness="4px" speed="0.65s" emptyColor="gray.200" color="primaryBlue.600" size="xl" />
             </Flex>
         );

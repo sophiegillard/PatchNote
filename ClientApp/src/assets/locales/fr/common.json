@@ -38,7 +38,6 @@
     },
     "userMenu": {
       "logout": "Se déconnecter",
-      "back_apschool": "Retourner sur APSchool",
       "actions" : "Actions",
       "languages_options": "Langues"
     },
@@ -150,7 +149,11 @@
       "login_username": "Identifiant",
       "login_password": "Mot de passe",
       "login_submit": "Se connecter",
-      "login_error": "Le champ est requis."
+      "login_error": "Le champ est requis.",
+      "discover": "Découvrir en tant que",
+      "admin_try": "Administrateur",
+      "user_try": "Utilisateur",
+      "login_not_found": "Identifiant ou mot de passe incorrect."
     },
     "home": {
       "home_title": "Nouveautés & Mises à jour",
@@ -227,6 +230,18 @@
       "commit_sha": "Commit",
       "commit_message": "Message",
       "commit_date": "Date"
+    },
+    "leaveMessage" : {
+      "leaveMessage_intro": "L'équipe est à votre écoute!",
+      "leaveMessage_text_1": "Vous avez une idée d’amélioration ou un commentaire ?",
+      "leaveMessage_text_2": "Partagez-le nous en remplissant ce formulaire.",
+      "leaveMessage_name": "Nom",
+      "leaveMessage_subject": "Sujet",
+      "leaveMessage_message": "Message",
+      "leaveMessage_send": "Envoyer",
+      "leaveMessage_cancel": "Annuler",
+      "leaveMessage_success": "Message envoyé",
+      "leaveMessage_error": "Erreur lors de l'envoi du message"
     }
   },
   "modales": {

@@ -1,12 +1,5 @@
-using System.Data;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using Hangfire;
-using Hangfire.MySql;
-using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using PatchNote.Api;
 using PatchNote.Api.Application.Authorization;
@@ -39,22 +32,6 @@ var builder = WebApplication.CreateBuilder(args);
     );
 
 
-    //Setting up Hangfire for scheduling sending newsletter
-    builder.Services.AddHangfire(configuration =>
-        configuration
-            .UseStorage(new MySqlStorage(builder.Configuration.GetConnectionString("HangfireConnection"), new MySqlStorageOptions
-            {
-                QueuePollInterval = TimeSpan.FromSeconds(15),
-                JobExpirationCheckInterval = TimeSpan.FromHours(1),
-                CountersAggregateInterval = TimeSpan.FromMinutes(5),
-                PrepareSchemaIfNecessary = true,
-                DashboardJobListLimit = 50000,
-                TransactionTimeout = TimeSpan.FromMinutes(1),
-                TablesPrefix = "Hangfire"
-            })));
-
-    builder.Services.AddHangfireServer();
-
     // add authentication services
     builder.Services
         .AddScoped<IJwtUtils, JwtUtils>()
@@ -64,20 +41,11 @@ var builder = WebApplication.CreateBuilder(args);
 
     //  Connextion to Databases
     var connectionString = builder.Configuration.GetConnectionString("PatchNoteDbConnectionString");
-    var HangfireConnection = builder.Configuration.GetConnectionString("HangfireConnection");
     var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
 
     builder.Services.AddDbContext<patchNoteDbContext>(options =>
         options
         .UseMySql(connectionString, serverVersion)
-        .LogTo(Console.WriteLine, LogLevel.Information)
-        .EnableSensitiveDataLogging()
-        .EnableDetailedErrors());
-
-
-    builder.Services.AddDbContext<HangfireDbContext>(options =>
-        options
-        .UseMySql(HangfireConnection, serverVersion)
         .LogTo(Console.WriteLine, LogLevel.Information)
         .EnableSensitiveDataLogging()
         .EnableDetailedErrors());
@@ -113,8 +81,7 @@ var app = builder.Build();
 
     app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173"));
     app.MapControllers();
-    app.UseHangfireDashboard();
-    app.MapHangfireDashboard();
+
 
 
     app.Run();

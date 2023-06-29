@@ -16,8 +16,6 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public string? ContenuNL { get; set; }
         public byte IsBrouillon { get; set; }
         public byte IsPublished { get; set; }
-
-        public string? JobId { get; set; }
         public DateTime DateModification { get; set; }
         public DateTime DatePublication { get; set; }
 

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, HStack, Link, Show, Heading, Stack, VStack, useMediaQuery } from "@chakra-ui/react";
+import { Box, Button, Tooltip, Flex, HStack, Link, Show, Heading, Stack, VStack, useMediaQuery, Circle, Center, Icon } from "@chakra-ui/react";
 import { useAuthUser } from "react-auth-kit";
 import React, { useEffect, useState } from "react";
 import { SearchBar } from "../Components/main/SearchBar.jsx";
@@ -12,6 +12,7 @@ import { useQueryClient } from "react-query";
 import { useTranslation } from "react-i18next";
 import { useArticleLoadMoreQuery } from "@/services/queries/articlesQuery.js";
 import { PrimaryActionButton } from "@/Components/Buttons/PrimaryActionButton.jsx";
+import { GoMail } from "react-icons/all.js";
 
 export const Home = () => {
     const auth = useAuthUser();
@@ -152,9 +153,20 @@ export const Home = () => {
                         {auth().typeUtilisateur === 1 && (
                             <Show below="md">
                                 <Link href={"/contact"}>
-                                    <Button position="fixed" bottom="20px" size={"sm"} colorScheme="purple" zIndex={3}>
-                                        Leave a message
-                                    </Button>
+                                    <Tooltip label={"leave a message"} placement="top" openDelay={200}>
+                                        <Circle
+                                            position="fixed"
+                                            bottom={{ base: "20px" }}
+                                            left={{ base: "20px" }}
+                                            zIndex={3}
+                                            bgColor="primaryBlue.300"
+                                            cursor="pointer"
+                                        >
+                                            <Center>
+                                                <Icon color="white" as={GoMail} boxSize={12} p="2" />
+                                            </Center>
+                                        </Circle>
+                                    </Tooltip>
                                 </Link>
                             </Show>
                         )}

@@ -15,15 +15,13 @@ import {
     Image,
 } from "@chakra-ui/react";
 import { SidebarWithHeader } from "../../Components/main/SidebarWithHeader";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { createMessageRecommandation } from "../../services/messageRecommandation/createMessageRecommandation.jsx";
 import { useAuthUser } from "react-auth-kit";
 import { SuccessModal } from "../../Components/Modals/SuccessModal";
 import success from "../../assets/images/completed.png";
-import logo from "../../assets/images/logo_small_light_blue.png";
-import logo_white from "../../assets/images/texte-logo-apschool-blanc.e7163821.svg";
 import { AlertModal } from "../../Components/Modals/Alertmodal";
 import { SuccessButton } from "@/Components/Buttons/SuccessButton.jsx";
 import { CancelButton } from "@/Components/Buttons/CancelButton.jsx";
@@ -31,6 +29,7 @@ import { CancelButton } from "@/Components/Buttons/CancelButton.jsx";
 export const LeaveMessage = () => {
     const auth = useAuthUser();
     const [errorMessage, setErrorMessage] = useState("");
+    const { t } = useTranslation();
 
     const successModal = useDisclosure();
     const alertModal = useDisclosure();
@@ -100,110 +99,107 @@ export const LeaveMessage = () => {
                 message={t("modales.sendingMessage.alert.message")}
                 handleSubmit={() => deleteMessage()}
             />
-            <Show above="xl">
-                <Image
-                    src={logo}
-                    position={"absolute"}
-                    maxWidth={"100%"}
-                    height={"30%"}
-                    overflow={"hidden"}
-                    bottom={0}
-                    zIndex={0}
-                    p={0}
-                    right={"-10"}
-                    top="38%"
-                />
-            </Show>
-            <Container minWidth={{ base: "70vw", xl: "60vw" }} maxH={{ base: "none", md: "60vh" }} zIndex={100} py={7}>
-                <Flex zIndex={30} flexDirection={{ base: "column", md: "row" }} gap={{ base: "4", md: "0" }}>
-                    <Center
-                        flexDirection="column"
-                        align="center"
-                        justifyContent={"space-between"}
-                        p="4"
-                        gap={{ base: "8", lg: "2" }}
-                        py={{ base: "4", lg: "8" }}
-                        maxW={{ base: "100%", lg: "35%" }}
-                        background="linear-gradient(151.52deg, #3D80BC 10.77%, #351153 91.65%)"
-                        borderRightRadius={{ base: "15", md: "0" }}
-                        borderRadius={15}
-                    >
-                        <Stack flexGrow={1} gap="4" justifyContent={"center"}>
-                            <Text color="White" fontSize={{ base: "xl", lg: "2xl" }} fontWeight={"bold"} as="i">
-                                L'équipe est à votre écoute!
-                            </Text>
-                            <Text as="h5" color="White" fontSize={{ base: "", lg: "xl" }} fontWeight={"light"}>
-                                Vous avez une idée d’amélioration ou un commentaire pour APSCHOOL?
-                            </Text>
-                            <Text as="i" fontSize={{ base: "", lg: "xl" }} color="White" fontWeight={"light"}>
-                                Partagez-le nous en remplissant ce formulaire.{" "}
-                            </Text>
-                        </Stack>
-                        <Image src={logo_white} alt={"Apschool_white"} width={{ base: "150px", lg: "200px" }} />
-                    </Center>
 
-                    <Flex bgColor="white" p="8" borderLeftRadius={{ base: "15", md: "0" }} borderRadius={15} width="100%">
-                        <Stack flexGrow="1">
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <Flex flexDirection={"column"} gap="6">
-                                    {createMessageMutation.isError && JSON.stringify(error)}
-                                    <FormControl isInvalid={errors.auteur}>
-                                        <Input
-                                            bgColor="white"
-                                            boxShadow="md"
-                                            name="auteur"
-                                            id="auteur"
-                                            placeholder="Votre nom"
-                                            {...register("auteur", {
-                                                required: t("main.errors.required_field"),
-                                                minLength: { value: 4, message: "Minimum 4 caractères requis" },
-                                            })}
-                                        />
-                                        <FormErrorMessage>{errors.auteur && errors.auteur.message}</FormErrorMessage>
-                                    </FormControl>
-
-                                    <FormControl isInvalid={errors.sujet}>
-                                        <Input
-                                            bgColor="white"
-                                            boxShadow="md"
-                                            name="sujet"
-                                            id="sujet"
-                                            placeholder="Sujet"
-                                            {...register("sujet", {
-                                                required: t("main.errors.required_field"),
-                                                minLength: { value: 4, message: "Minimum 4 caractères requis" },
-                                            })}
-                                        />
-                                        <FormErrorMessage>{errors.sujet && errors.sujet.message}</FormErrorMessage>
-                                    </FormControl>
-
-                                    <FormControl isInvalid={errors.message}>
-                                        <Textarea
-                                            bgColor="white"
-                                            boxShadow="md"
-                                            name="message"
-                                            id="message"
-                                            height={"250px"}
-                                            placeholder="Votre message"
-                                            {...register("message", {
-                                                required: t("main.errors.required_field"),
-                                                minLength: { value: 30, message: "Votre message trop court" },
-                                            })}
-                                        />
-                                        {errorMessage != "" && <p>{errorMessage}</p>}
-                                        <FormErrorMessage>{errors.message && errors.message.message}</FormErrorMessage>
-                                    </FormControl>
-
-                                    <Flex align="center" justifyContent={"center"} gap="3">
-                                        <CancelButton onClick={() => cancelSubmit()} flex={1} />
-                                        <SuccessButton text={t("main.general.submit")} flex={2} />
-                                    </Flex>
-                                </Flex>
-                            </form>
-                        </Stack>
-                    </Flex>
+            <Flex
+                height={{ base: "none", md: "80vh" }}
+                pt={{ base: "4", md: "0" }}
+                overflow={"hidden"}
+                overflowY="scroll"
+                flexDirection={{ base: "column", md: "row" }}
+            >
+                <Flex
+                    flexDirection="column"
+                    align="center"
+                    justifyContent={"space-between"}
+                    p="4"
+                    pl="8"
+                    gap={{ base: "8", lg: "2" }}
+                    background="linear-gradient(151.52deg, #3D80BC 10.77%, #351153 91.65%)"
+                    borderRightRadius={{ base: "15", md: "0" }}
+                    borderRadius={15}
+                    minHeight="full"
+                    mx={{ base: "8", md: "0" }}
+                >
+                    <Stack flexGrow={1} gap="4" justifyContent={"center"}>
+                        <Text color="White" fontSize={{ base: "xl", lg: "2xl" }} fontWeight={"bold"} as="i">
+                            {t("pages.leaveMessage.leaveMessage_intro")}
+                        </Text>
+                        <Text as="h5" color="White" fontSize={{ base: "", lg: "xl" }} fontWeight={"light"}>
+                            {t("pages.leaveMessage.leaveMessage_text_1")}
+                        </Text>
+                        <Text as="i" fontSize={{ base: "", lg: "xl" }} color="White" fontWeight={"light"}>
+                            {t("pages.leaveMessage.leaveMessage_text_2")}
+                        </Text>
+                    </Stack>
                 </Flex>
-            </Container>
+                <Flex
+                    flexDirection={"column"}
+                    minHeight="full"
+                    p="8"
+                    borderLeftRadius={{ base: "15", md: "0" }}
+                    borderRadius={15}
+                    width="100%"
+                    justifyContent="center"
+                >
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        {createMessageMutation.isError && JSON.stringify(error)}
+
+                        <Flex flexDirection={"column"} gap="5">
+                            <FormControl isInvalid={errors.auteur}>
+                                <Input
+                                    bgColor="white"
+                                    boxShadow="md"
+                                    name="auteur"
+                                    id="auteur"
+                                    placeholder={t("pages.leaveMessage.leaveMessage_name")}
+                                    {...register("auteur", {
+                                        required: t("main.errors.required_field"),
+                                        minLength: { value: 4, message: "Minimum 4 caractères requis" },
+                                    })}
+                                />
+                                <FormErrorMessage>{errors.auteur && errors.auteur.message}</FormErrorMessage>
+                            </FormControl>
+
+                            <FormControl isInvalid={errors.sujet}>
+                                <Input
+                                    bgColor="white"
+                                    boxShadow="md"
+                                    name="sujet"
+                                    id="sujet"
+                                    placeholder={t("pages.leaveMessage.leaveMessage_subject")}
+                                    {...register("sujet", {
+                                        required: t("main.errors.required_field"),
+                                        minLength: { value: 4, message: "Minimum 4 caractères requis" },
+                                    })}
+                                />
+                                <FormErrorMessage>{errors.sujet && errors.sujet.message}</FormErrorMessage>
+                            </FormControl>
+
+                            <FormControl isInvalid={errors.message}>
+                                <Textarea
+                                    bgColor="white"
+                                    boxShadow="md"
+                                    name="message"
+                                    id="message"
+                                    height={"250px"}
+                                    placeholder={t("pages.leaveMessage.leaveMessage_message")}
+                                    {...register("message", {
+                                        required: t("main.errors.required_field"),
+                                        minLength: { value: 30, message: "Votre message trop court" },
+                                    })}
+                                />
+                                {errorMessage != "" && <p>{errorMessage}</p>}
+                                <FormErrorMessage>{errors.message && errors.message.message}</FormErrorMessage>
+                            </FormControl>
+
+                            <Flex align="center" justifyContent={"center"} gap="3">
+                                <CancelButton onClick={() => cancelSubmit()} flex={1} />
+                                <SuccessButton text={t("main.general.submit")} flex={2} />
+                            </Flex>
+                        </Flex>
+                    </form>
+                </Flex>
+            </Flex>
         </SidebarWithHeader>
     );
 };

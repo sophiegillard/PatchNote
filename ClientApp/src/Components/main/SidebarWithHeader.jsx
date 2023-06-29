@@ -30,7 +30,6 @@ import {
 } from "@chakra-ui/react";
 import { FiMenu, FiChevronDown } from "react-icons/fi";
 import logo from "../../assets/images/logo_blue.png";
-import smallLogo from "../../assets/images/logo_raw.png";
 import paperPlane from "../../assets/images/paper-plane.png";
 import { useAuthUser, useSignOut } from "react-auth-kit";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -58,10 +57,11 @@ export const SidebarWithHeader = ({ children }) => {
                 mr={{ base: 0, md: 4 }}
                 mb={{ base: 0, md: 5 }}
                 mt={{ base: 0, md: 2 }}
-                borderRadius="2xl"
+                borderRadius={{ base: 0, md: "2xl" }}
                 bgColor="white"
                 shadow={{ base: "none", md: "sm" }}
                 flexGrow="1"
+                minH="80vh"
             >
                 {children}
             </Box>
@@ -199,9 +199,11 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     </Flex>
                 )}
 
-                {!isLargerThan60em && (
+                {!isLargerThan60em && auth().typeUtilisateur === 1 && (
                     <Box boxSize="s">
-                        <Image src={smallLogo} alt="logo" height={"60px"} />
+                        <Link href="/">
+                            <Image src={logo} alt="logo" height={"60px"} />
+                        </Link>
                     </Box>
                 )}
 

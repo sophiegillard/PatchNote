@@ -1,5 +1,4 @@
 using System.Reflection;
-using Hangfire;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PatchNote.Api.Application.Services.NewsletterEmailService;
@@ -19,26 +18,17 @@ namespace PatchNote.Api.Controllers.PatchNoteControllers;
 public class NewsletterController : Controller
 {
     private readonly patchNoteDbContext _patchNoteDbContext;
-    private readonly HangfireDbContext _hangfireDbContext;
     private readonly INewsletterEmailService _newsletterEmailService;
-    private readonly IBackgroundJobClient _backgroundJobClient;
-
     private readonly IMapper _mapper;
 
     public NewsletterController(
                         patchNoteDbContext patchNoteDbContext,
-                        HangfireDbContext hangfireDbContext,
                         INewsletterEmailService newsletterEmailService,
-                        IBackgroundJobClient backgroundJobClient,
                         IMapper mapper)
     {
         _patchNoteDbContext = patchNoteDbContext;
 
-        _hangfireDbContext = hangfireDbContext;
-
         _newsletterEmailService = newsletterEmailService;
-
-        _backgroundJobClient = backgroundJobClient;
 
         _mapper = mapper;
     }
@@ -353,30 +343,6 @@ public class NewsletterController : Controller
                     placeholders.Add(new KeyValuePair<string, string>("{{NewsletterTitle}}", newsletterTitle));
                     placeholders.Add(new KeyValuePair<string, string>("{{userId}}", user.Id.ToString()));
 
-
-
-                    var email = new EmailDto
-                    {
-                        To = user.Email,
-                        Subject = newsletterTitle,
-                        PlaceHolders = placeholders
-                    };
-
-
-
-
-                    if (newsletter.JobId != null)
-                    {
-                        BackgroundJob.Delete(newsletter.JobId);
-                    }
-
-                    // ID instead of email 
-                    var jobId = BackgroundJob.Schedule(() => _newsletterEmailService.SendEmail(email, userLanguage), newsletter.DatePublication);
-                    newsletter.JobId = jobId;
-                    await _patchNoteDbContext.SaveChangesAsync();
-
-                    // BackgroundJob.ContinueJobWith(jobId, () =>
-                    // switchPublish(newsletter, _patchNoteDbContext));
                 }
             }
         }
