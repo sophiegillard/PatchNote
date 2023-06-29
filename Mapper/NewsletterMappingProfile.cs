@@ -18,12 +18,23 @@ namespace PatchNote.Mapper
                 .ForMember(dest => dest.DatePublication, opt => opt.MapFrom(src => src.DatePublication.ToString("dd-MM-yyyy")))
                 .ForMember(dest => dest.DateCreation, opt => opt.MapFrom(src => src.DatePublication.ToString("dd-MM-yyyy")))
                 .ForMember(dest => dest.DateModification, opt => opt.MapFrom(src => src.DatePublication.ToString("dd-MM-yyyy")))
-                .ForMember(dest => dest.Articles, opt => opt.Ignore());
+                .ForMember(dest => dest.Articles, opt => opt.Ignore())
+                 .AfterMap((src, dest) =>
+                {
+                    dest.DatePublication = DateTime.ParseExact(dest.DatePublication, "dd-MM-yyyy", null).ToString("dd-MM-yyyy");
+                    dest.DateCreation = DateTime.ParseExact(dest.DateCreation, "dd-MM-yyyy", null).ToString("dd-MM-yyyy");
+                    dest.DateModification = DateTime.ParseExact(dest.DateModification, "dd-MM-yyyy", null).ToString("dd-MM-yyyy");
+
+                });
 
             CreateMap<Article, NewsletterArticlesListDto>()
                 .ForMember(dest => dest.DatePublication, opt => opt.MapFrom(src => src.DatePublication.ToString("dd-MM-yyyy")))
                 .ForMember(dest => dest.Categorie, opt => opt.MapFrom(src => src.Categorie.Nom))
-                .ForMember(dest => dest.Module, opt => opt.MapFrom(src => src.Module.Nom));
+                .ForMember(dest => dest.Module, opt => opt.MapFrom(src => src.Module.Nom))
+                   .AfterMap((src, dest) =>
+                {
+                    dest.DatePublication = DateTime.ParseExact(dest.DatePublication, "dd-MM-yyyy", null).ToString("dd-MM-yyyy");
+                });
 
             CreateMap<NewsletterUpdateDto, Newsletter>()
                 .ForMember(dest => dest.DateModification, opt => opt.Ignore());

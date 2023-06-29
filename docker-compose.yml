@@ -1,0 +1,39 @@
+version : "3.4"
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  patch-note:
+    image : docker.io/library/patchnote
+    depends_on:
+      - "app_db"
+    container_name: patchnote-services
+    ports:
+     - "8088:80"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__PatchNoteDbConnectionString=Server=app_db;Port=3306;Database=patch_note_sophie;UId=root;Password=root1234;
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - dev
+
+  app_db:
+    image: mysql:latest
+    container_name: name
+    environment:
+      - MYSQL_ROOT_PASSWORD=root1234
+      - MYSQL_DATABASE=patch_note_sophie
+    ports:
+      - "5433:3306"
+    restart : always
+    volumes:
+      - app_data:/var/lib/mysql
+    networks:
+      - dev
+
+volumes:
+  app_data:

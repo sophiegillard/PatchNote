@@ -17,13 +17,6 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public int StatutMessageRecommandationId { get; set; }
         public string StatutMessageRecommandation { get; set; } = string.Empty;
         public string? StatutMessageRecommandationColor { get; set; }
-
-
-        private DateTime _dateCreation;
-        public string DateCreation
-        {
-            get => _dateCreation.ToString("dd-MM-yyyy");
-            set => _dateCreation = DateTime.Parse(value);
-        }
+        public required string DateCreation { get; set; }
     }
 }

@@ -66,20 +66,20 @@ var app = builder.Build();
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-        //     app.UseSwaggerUI(options =>
-        // {
-        //     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-        //     options.RoutePrefix = string.Empty;
-        // });
+        app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
     }
 }
 
 {
-    app.UseHttpsRedirection();
+    // app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
 
-    app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173"));
+    app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://main--patch-note-foodbell.netlify.app"));
     app.MapControllers();
 
 

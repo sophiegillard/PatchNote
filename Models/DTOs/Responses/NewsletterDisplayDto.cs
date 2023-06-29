@@ -20,28 +20,11 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public byte IsBrouillon { get; set; }
 
         public ICollection<NewsletterArticlesListDto>? Articles { get; set; }
-    
 
-        private DateTime _datePublication;
-        private DateTime _dateCreation;
-        private DateTime _dateModification;
-        public string DatePublication 
-        { 
-            get => _datePublication.ToString("dd-MM-yyyy");
-            set => _datePublication = DateTime.Parse(value); 
-        }
+        public required string DateCreation { get; set; }
+        public required string DatePublication { get; set; }
+        public string? DateModification { get; set; }
 
-        public string DateCreation 
-        { 
-            get => _dateCreation.ToString("dd-MM-yyyy"); 
-            set => _dateCreation = DateTime.Parse(value); 
-        }
-
-        public string DateModification 
-        { 
-            get => _dateModification.ToString("dd-MM-yyyy"); 
-            set => _dateModification = DateTime.Parse(value); 
-        }
 
     }
 }

@@ -15,8 +15,12 @@ namespace PatchNote.Mapper
         public MessageRecommandationMappingProfile()
         {
             CreateMap<MessageRecommandation, MessageRecommandationDisplayDto>()
-                 .ForMember(dest => dest.StatutMessageRecommandation, opt => opt.MapFrom(src => src.StatutMessageRecommandation.NomStatut))
-                .ForMember(dest => dest.DateCreation, opt => opt.MapFrom(src => src.DateCreation.ToString("dd-MM-yyyy")));
+                .ForMember(dest => dest.StatutMessageRecommandation, opt => opt.MapFrom(src => src.StatutMessageRecommandation.NomStatut))
+                .ForMember(dest => dest.DateCreation, opt => opt.MapFrom(src => src.DateCreation.ToString("dd-MM-yyyy")))
+                .AfterMap((src, dest) =>
+                {
+                    dest.DateCreation = DateTime.ParseExact(dest.DateCreation, "dd-MM-yyyy", null).ToString("dd-MM-yyyy");
+                });
         }
     }
 

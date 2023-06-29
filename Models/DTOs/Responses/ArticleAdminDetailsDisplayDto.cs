@@ -23,20 +23,21 @@ namespace PatchNote.Api.Models.DTOs.Responses
         public int IsBrouillon { get; set; }
         public int IsArchive { get; set; }
 
-        
-        private DateTime _datePublication;
-        private DateTime _dateModification;
+        public required string DatePublication { get; set; }
+        public required string DateModification { get; set; }
+        // private DateTime _datePublication;
+        // private DateTime _dateModification;
 
-        public string DatePublication 
-        { 
-            get => _datePublication.ToString("dd-MM-yyyy"); 
-            set => _datePublication = DateTime.Parse(value); 
-        }
+        // public string DatePublication
+        // {
+        //     get => _datePublication.ToString("dd-MM-yyyy");
+        //     set => _datePublication = DateTime.Parse(value);
+        // }
 
-        public string DateModification 
-        { 
-            get => _dateModification.ToString("dd-MM-yyyy"); 
-            set => _dateModification = DateTime.Parse(value); 
-        }
+        // public string DateModification
+        // {
+        //     get => _dateModification.ToString("dd-MM-yyyy");
+        //     set => _dateModification = DateTime.Parse(value);
+        // }
     }
 }
