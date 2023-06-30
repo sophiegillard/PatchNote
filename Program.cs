@@ -6,7 +6,6 @@ using PatchNote.Api.Application.Authorization;
 using PatchNote.Api.Application.Services;
 using PatchNote.Api.Application.Services.NewsletterEmailService;
 using PatchNote.Api.Data.PatchNoteDatas.DBContext;
-using PatchNote.Api.Models.DTOs.Requests;
 using PatchNote.Mapper;
 
 
